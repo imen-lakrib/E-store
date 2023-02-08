@@ -1,16 +1,16 @@
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { Avatar, Badge, Typography } from '@mui/material';
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { Link, useNavigate } from 'react-router-dom';
+import { Avatar, Typography } from '@mui/material';
+import {  onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../../firebase/config';
 // react tosetify
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 // redux:
 import { useDispatch } from 'react-redux';
-import { SET_ACTIVE_USER } from '../../redux/slices/authSlice';
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slices/authSlice';
 
 export default function MyAccount() {
 
@@ -19,27 +19,36 @@ export default function MyAccount() {
   const dispatch = useDispatch()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
-  const [userName, setUserName] = useState("")
+  const [userNameUser, setUserNameUser] = useState("")
 
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserName(user.email)
+        if(user.displayName == null){
+          const u1 = user.email.substring(0, user.email.indexOf("@"));
+          const uName= u1.charAt(0).toLocaleUpperCase()+ u1.slice(1)
+          setUserNameUser(uName)
+        }else {setUserNameUser(user.displayName)}
+
+        
+        
         //redux:
         dispatch(SET_ACTIVE_USER({
           email:user.email,
-          userName:user.displayName,
+          userName:user.displayName ? user.displayName : userNameUser ,
           userID:user.uid
         }))
         
-      } else {
-        setUserName("")
+      } else{
+        dispatch(REMOVE_ACTIVE_USER())
       }
+      
+
     });
     
 
-  }, [])
+  }, [dispatch, userNameUser])
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -76,18 +85,10 @@ export default function MyAccount() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}>
         <MenuItem disableRipple>
-          {isLoggedIn ? (
-            <>
+          
               <Avatar alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
-              <Typography >{userName}</Typography>
-            </>
-          ) : (
-            <>
-              <Avatar alt="Remy Sharp" src="" />
-              <Typography >imen</Typography>
-
-            </>
-          )}
+              <Typography >{userNameUser}</Typography>
+           
 
         </MenuItem>
       </Link>
@@ -102,17 +103,17 @@ export default function MyAccount() {
         }}
       >
         {isLoggedIn ? (
-          <>
+          <div>
             <MenuItem onClick={handleClose}>Dashboard</MenuItem>
             <MenuItem onClick={logOutUser}>Logout</MenuItem>
-          </>
+            </div>
         ) : (
-          <>
+          <div>
             <MenuItem onClick={handleClose}><Link to="/login">Log In</Link></MenuItem>
             <MenuItem onClick={handleClose}><Link to="/register">Register</Link></MenuItem>
             <MenuItem onClick={handleClose}><Link to="/orderHistory">My Orders</Link></MenuItem>
 
-          </>
+            </div>
         )}
 
 

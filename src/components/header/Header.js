@@ -1,12 +1,10 @@
-import { AppBar, Avatar, Badge, Button, Chip, Grid, MenuItem, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { AppBar,Grid, MenuItem, Typography } from '@mui/material'
+import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StoreIcon from '@mui/icons-material/Store';
 import MyAccount from './MyAccount';
 import LanguagePopover from './LanguagePopover';
 import CartPopover from './CartPopover';
-import MenuIcon from '@mui/icons-material/Menu';
 import MobilePopover from './MobilePopover';
 const logo = (
   <Link to="/">
@@ -17,7 +15,6 @@ const logo = (
   </Link>
 )
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   // sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
   // xs={6} md={8}
   return (

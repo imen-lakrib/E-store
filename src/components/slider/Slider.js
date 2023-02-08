@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -24,11 +24,11 @@ export function Slider() {
         className="mySwiper"
       >
         <SwiperSlide>
-            <img src="./assets/images/covers/cover_1.jpg"/>
+            <img alt="slider"  src="./assets/images/covers/cover_1.jpg"/>
         </SwiperSlide>
-        <SwiperSlide><img src="./assets/images/covers/cover_2.jpg"/></SwiperSlide>
-        <SwiperSlide><img src="./assets/images/covers/cover_3.jpg"/></SwiperSlide>
-        <SwiperSlide><img src="./assets/images/covers/cover_4.jpg"/></SwiperSlide>
+        <SwiperSlide><img alt="slider" src="./assets/images/covers/cover_2.jpg"/></SwiperSlide>
+        <SwiperSlide><img alt="slider"  src="./assets/images/covers/cover_3.jpg"/></SwiperSlide>
+        <SwiperSlide><img alt="slider"  src="./assets/images/covers/cover_4.jpg"/></SwiperSlide>
      
       </Swiper>
     </>

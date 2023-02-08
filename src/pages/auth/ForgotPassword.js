@@ -1,23 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook } from '@mui/icons-material';
 import { Google } from '@mui/icons-material';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import Loader from "../../components/loader/Loader"
+import { Link } from 'react-router-dom';
+// import Loader from "../../components/loader/Loader"
 // firebase auth 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../../firebase/config"
 // react tosetify
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function ForgotPassword() {
     // loading:
-    const [isLoading, setIsLoading] = useState(false)
-    const Navigate= useNavigate()
+    // const [isLoading, setIsLoading] = useState(false)
+    // const Navigate= useNavigate()
     const formik = useFormik({
         initialValues: {
             email: 'demo@devias.io',
@@ -46,7 +42,7 @@ function ForgotPassword() {
 
 
         <>
-{isLoading && <Loader/>}
+{/* {isLoading && <Loader/>} */}
 
             <Box
                 component="main"
