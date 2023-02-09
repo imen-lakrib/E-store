@@ -1,5 +1,5 @@
 import { AppBar,Grid, MenuItem, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import StoreIcon from '@mui/icons-material/Store';
 import MyAccount from './MyAccount';
@@ -15,6 +15,8 @@ const logo = (
   </Link>
 )
 function Header() {
+  const [open, setOpen] = useState(true);
+
   // sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
   // xs={6} md={8}
   return (
@@ -37,7 +39,7 @@ function Header() {
         </Grid>
 
         <Grid item xs={4} sm={3} sx={{ display: "flex", alignItems: "center" }}>
-          <LanguagePopover />
+          <LanguagePopover local={open} />
           <CartPopover />
           <MyAccount />
 

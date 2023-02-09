@@ -1,0 +1,6 @@
+{
+    "students":"students",
+    "login":"login",
+    "logout":"logout",
+    "login_dashboard": "login in dashboard"
+}

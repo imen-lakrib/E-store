@@ -11,13 +11,17 @@ import { useEffect, useState } from 'react';
 // redux:
 import { useDispatch } from 'react-redux';
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slices/authSlice';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../redux/slices/authSlice';
 
 export default function MyAccount() {
 
   
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [userNameUser, setUserNameUser] = useState("")
 
@@ -41,6 +45,7 @@ export default function MyAccount() {
         }))
         
       } else{
+        setUserNameUser("")
         dispatch(REMOVE_ACTIVE_USER())
       }
       
@@ -64,7 +69,6 @@ export default function MyAccount() {
         toast.success("logout completed")
         navigate('/')
       })
-      setIsLoggedIn(!isLoggedIn)
       handleClose()
 
     } catch (error) {
@@ -85,9 +89,17 @@ export default function MyAccount() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}>
         <MenuItem disableRipple>
-          
-              <Avatar alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
+          {isLoggedIn? (
+            <>
+             <Avatar alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
               <Typography >{userNameUser}</Typography>
+            </>
+          ):(
+            <>
+            <Avatar alt="Remy Sharp" src="" />
+            </>
+          )}
+             
            
 
         </MenuItem>
@@ -104,7 +116,7 @@ export default function MyAccount() {
       >
         {isLoggedIn ? (
           <div>
-            <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+            <MenuItem onClick={handleClose}><Link to="/dashboard">Dashboard</Link></MenuItem>
             <MenuItem onClick={logOutUser}>Logout</MenuItem>
             </div>
         ) : (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Footer from './components/footer/Footer'
 import Header from './components/header/Header'
@@ -12,9 +12,19 @@ import Login from './pages/auth/Login'
 // react tosetify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// language:
+import i18n from './utils/language/i18n';
+import LocaleContext from './utils/language/LocalContext';
+
+
+
 function App() {
+  // language:
+  const [locale, setLocale] = useState(i18n.language);
+
   return (
     <>
+    <LocaleContext.Provider value={{locale, setLocale}}>
       <BrowserRouter>
       <ThemeProvider theme={appTheme}>
       <ToastContainer />
@@ -29,6 +39,7 @@ function App() {
           <Footer />
         </ThemeProvider>
       </BrowserRouter>
+      </LocaleContext.Provider>
     </>
   )
 }

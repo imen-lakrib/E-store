@@ -2,31 +2,40 @@ import { useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, MenuItem, Stack, IconButton, Popover } from '@mui/material';
+import i18n from '../../utils/language/i18n';
 
 // ----------------------------------------------------------------------
 
 const LANGS = [
   {
-    value: 'en',
     label: 'English',
-    icon: '/assets/icons/ic_flag_en.svg',
+    value: 'en',
+    icon: '/assets/flags/en.png',
   },
   {
-    value: 'ar',
-    label: 'Arabic',
-    icon: '/assets/icons/ic_flag_de.svg',
-  },
-  {
-    value: 'fr',
     label: 'French',
-    icon: '/assets/icons/ic_flag_fr.svg',
+    value: 'fr',
+    icon: '/assets/flags/fr.png',
+  },
+  {
+    label: 'العربية',
+    value: 'ar',
+    icon: '/assets/flags/ar.png',
   },
 ];
 
 // ----------------------------------------------------------------------
 
-export default function LanguagePopover() {
+export default function LanguagePopover({local}) {
+  function changeLocale(l){
+    if(local !== l){
+      i18n.changeLanguage(l)
+    }
+
+  }
+  
   const [open, setOpen] = useState(null);
+  
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -41,16 +50,15 @@ export default function LanguagePopover() {
       <IconButton
         onClick={handleOpen}
         sx={{
-          padding: 0,
-          width: 44,
-          height: 44,
-          ...(open && {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity),
-          }),
+          width: 40,
+          height: 40,
+          ...(open && { bgcolor: 'action.selected' }),
         }}
       >
-        <img src={LANGS[0].icon} alt={LANGS[0].label} />
+        <Box component="img"   sx={{ width: 28, height :20 }} src={LANGS[0].icon} alt={LANGS[0].label} />
       </IconButton>
+
+
 
       <Popover
         open={Boolean(open)}
@@ -74,9 +82,10 @@ export default function LanguagePopover() {
       >
         <Stack spacing={0.75}>
           {LANGS.map((option) => (
-            <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => handleClose()}>
-              <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, mr: 2 }} />
-
+            <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => {
+              changeLocale(option.value)
+              handleClose()}}>
+<Box component="img" disabledEffect alt={option.label} src={option.icon} sx={{ width: 28, height :20 , mr: 2 }} />
               {option.label}
             </MenuItem>
           ))}

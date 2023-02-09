@@ -12,8 +12,14 @@ import {auth} from "../../firebase/config"
 // react tosetify
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// language:
+import { useTranslation } from "react-i18next";
 
 function Login() {
+    //language 
+    const { t } = useTranslation()
+
+
     // loading:
     const [isLoading, setIsLoading] = useState(false)
     const Navigate= useNavigate()
@@ -74,7 +80,7 @@ function Login() {
                   
                     <form onSubmit={formik.handleSubmit}>
                     <Box sx={{ my: 1 , textAlign:"center", color:"gray"}}>
-                            <Typography variant="h5">Log in </Typography>
+                            <Typography variant="h5">{t('login')}  </Typography>
 
                         </Box>
 
