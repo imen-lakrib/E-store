@@ -27,15 +27,17 @@ const LANGS = [
 // ----------------------------------------------------------------------
 
 export default function LanguagePopover({local}) {
-  function changeLocale(l){
-    if(local !== l){
+  
+  const [selectedLanguage,setSelectedLanguage]=useState(LANGS[0].icon)
+  function changeLocale(l) {
+    if (local !== l) {
       i18n.changeLanguage(l)
     }
 
   }
-  
+
   const [open, setOpen] = useState(null);
-  
+
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -55,8 +57,8 @@ export default function LanguagePopover({local}) {
           ...(open && { bgcolor: 'action.selected' }),
         }}
       >
-        <Box component="img"   sx={{ width: 28, height :20 }} src={LANGS[0].icon} alt={LANGS[0].label} />
-      </IconButton>
+        <Box component="img" sx={{ width: 28, height: 20 }} src={selectedLanguage.icon ? selectedLanguage.icon : LANGS[0].icon} />
+      </IconButton> 
 
 
 
@@ -84,8 +86,11 @@ export default function LanguagePopover({local}) {
           {LANGS.map((option) => (
             <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => {
               changeLocale(option.value)
-              handleClose()}}>
-<Box component="img" disabledEffect alt={option.label} src={option.icon} sx={{ width: 28, height :20 , mr: 2 }} />
+              console.log(option.label)
+              setSelectedLanguage(option)
+              handleClose()
+            }}>
+              <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, height: 20, mr: 2 }} />
               {option.label}
             </MenuItem>
           ))}

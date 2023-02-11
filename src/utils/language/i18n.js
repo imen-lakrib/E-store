@@ -8,13 +8,23 @@ i18n
     .use(initReactI18next)
     .use(Backend)
     .init({
-        fullbackLng: "en",
-        debug: true,
+        resources: {
+          en: {
+            translation: require("./locals/en/translation.json"),
+          },
+          ar: {
+            translation: require("./locals/ar/translation.json"),
+          },
+          fr: {
+            translation: require("./locals/fr/translation.json"),
+          },
+        },
+        lng: "en", // set the default language
+        fallbackLng: "en",
+        keySeparator: false,
         interpolation: {
-            escapeValue: false
-
-        }
-
-    })
+          escapeValue: false,
+        },
+      });
 
 export default i18n

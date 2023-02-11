@@ -14,8 +14,7 @@ const logo = (
 
   </Link>
 )
-function Header() {
-  const [open, setOpen] = useState(true);
+function Header({local}) {
 
   // sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
   // xs={6} md={8}
@@ -39,7 +38,7 @@ function Header() {
         </Grid>
 
         <Grid item xs={4} sm={3} sx={{ display: "flex", alignItems: "center" }}>
-          <LanguagePopover local={open} />
+          <LanguagePopover local={local} />
           <CartPopover />
           <MyAccount />
 
