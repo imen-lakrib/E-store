@@ -23,14 +23,16 @@ import Admin from './pages/admin/Admin'
 function App() {
   // language:
   const [locale, setLocale] = useState(i18n.language);
+  const [direction, setDirection] = useState("ltr");
 
   return (
-    <>
+    <div style={{direction: direction === "rtl" ? "rtl" : "ltr"}}>
     <LocaleContext.Provider value={{locale, setLocale}}>
       <BrowserRouter>
       <ThemeProvider theme={appTheme}>
       <ToastContainer />
-          <Header />
+          <Header  setDirection={setDirection}/>
+          
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/contact' element={<Contact />} />
@@ -43,7 +45,7 @@ function App() {
         </ThemeProvider>
       </BrowserRouter>
       </LocaleContext.Provider>
-    </>
+    </div>
   )
 }
 

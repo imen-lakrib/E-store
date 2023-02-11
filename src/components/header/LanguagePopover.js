@@ -11,24 +11,27 @@ const LANGS = [
     label: 'English',
     value: 'en',
     icon: '/assets/flags/en.png',
+    dir:"ltr"
   },
   {
     label: 'French',
     value: 'fr',
     icon: '/assets/flags/fr.png',
+    dir:"ltr"
   },
   {
     label: 'العربية',
     value: 'ar',
     icon: '/assets/flags/ar.png',
+    dir:"rtl"
   },
 ];
 
 // ----------------------------------------------------------------------
 
-export default function LanguagePopover({local}) {
+export default function LanguagePopover({local, setDirection}) {
   
-  const [selectedLanguage,setSelectedLanguage]=useState(LANGS[0].icon)
+  const [selectedLanguage,setSelectedLanguage]=useState(LANGS[0])
   function changeLocale(l) {
     if (local !== l) {
       i18n.changeLanguage(l)
@@ -88,6 +91,7 @@ export default function LanguagePopover({local}) {
               changeLocale(option.value)
               console.log(option.label)
               setSelectedLanguage(option)
+              setDirection(option.dir)
               handleClose()
             }}>
               <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, height: 20, mr: 2 }} />
