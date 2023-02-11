@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slices/authSlice';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/slices/authSlice';
+import AdminOnlyRoute from '../adminOnlyRoute/AdminOnlyRoute';
 
 export default function MyAccount() {
 
@@ -88,11 +89,14 @@ export default function MyAccount() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}>
-        <MenuItem disableRipple>
+          {/* overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto; */}
+        <MenuItem disableRipple >
           {isLoggedIn? (
             <>
              <Avatar alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
-              <Typography >{userNameUser}</Typography>
+              <div style={{ overflowWrap:"anywhere",fontSize:"10px"}} >{userNameUser}</div>
             </>
           ):(
             <>
@@ -116,7 +120,9 @@ export default function MyAccount() {
       >
         {isLoggedIn ? (
           <div>
-            <MenuItem onClick={handleClose}><Link to="/dashboard">Dashboard</Link></MenuItem>
+            <AdminOnlyRoute>
+            <MenuItem onClick={handleClose}><Link to="/admin/dashboard">Dashboard</Link></MenuItem>
+            </AdminOnlyRoute>
             <MenuItem onClick={logOutUser}>Logout</MenuItem>
             </div>
         ) : (

@@ -44,7 +44,6 @@ function Login() {
                 setIsLoading(true)
                 const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password)
                 const newUser = userCredential.user;
-                console.log(newUser)
                     setIsLoading(false)
                     toast.success("login successful")
                     Navigate('/')

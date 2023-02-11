@@ -15,6 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // language:
 import i18n from './utils/language/i18n';
 import LocaleContext from './utils/language/LocalContext';
+import AdminOnlyRoute from './components/adminOnlyRoute/AdminOnlyRoute'
+import Admin from './pages/admin/Admin'
 
 
 
@@ -35,6 +37,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/forgotpassword' element={<ForgotPassword />} />
+            <Route path='/admin/*' element={<AdminOnlyRoute><Admin /></AdminOnlyRoute>} />
           </Routes>
           <Footer />
         </ThemeProvider>

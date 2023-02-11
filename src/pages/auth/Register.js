@@ -7,13 +7,14 @@ import { Google } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import Loader from "../../components/loader/Loader"
 // firebase auth 
+
 import {  createUserWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../../firebase/config"
 // react tosetify
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Register() {
+function Register(){
     // loading:
     const [isLoading, setIsLoading] = useState(false)
     const Navigate= useNavigate()
@@ -35,8 +36,9 @@ function Register() {
                 }
                 setIsLoading(true)
                 const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password)
+                
                 const newUser = userCredential.user;
-                console.log(newUser)
+                newUser.isAdmin = false;
                     setIsLoading(false)
                     toast.success("registered successfully")
                     Navigate('/login')

@@ -4,7 +4,7 @@ import { Slider } from '../../components/slider/Slider'
 function Home() {
   return (
     <div>
-      <Slider/>
+      {/* <Slider/> */}
     </div>
   )
 }
