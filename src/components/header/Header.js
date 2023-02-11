@@ -6,18 +6,24 @@ import MyAccount from './MyAccount';
 import LanguagePopover from './LanguagePopover';
 import CartPopover from './CartPopover';
 import MobilePopover from './MobilePopover';
-const logo = (
-  <Link to="/">
-    <MenuItem  >
-      <StoreIcon />E-store
-    </MenuItem>
+import { useTranslation } from 'react-i18next';
 
-  </Link>
-)
+
 function Header({local, setDirection}) {
+  const { t } = useTranslation()
 
   // sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
   // xs={6} md={8}
+
+  const logo = (
+    <Link to="/">
+      <MenuItem  >
+        <StoreIcon />{t("estore")}
+      </MenuItem>
+  
+    </Link>
+  )
+
   return (
     <AppBar sx={{ backgroundColor: "white", p: 1 }} position="static">
       <Grid container spacing={2} sx={{ alignItems: "center" }}>
@@ -26,14 +32,10 @@ function Header({local, setDirection}) {
         </Grid>
         <Grid item xs={0} sm={6} sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: "center", justifyContent: "space-evenly" }}>
 
-          <NavLink to="/">
-            {({ isActive }) => (
-              <Typography  sx={{color: isActive? 'red': 'blue'}}> Home</Typography>
-            )}
-            Home</NavLink>
-          <NavLink to="/shop">Shop</NavLink>
-          <NavLink to="cart">cart</NavLink>
-          <NavLink to="/contact">ContactUs</NavLink>
+          <NavLink to="/">{t("home")}</NavLink>
+          <NavLink to="/shop">{t("shop")}</NavLink>
+          <NavLink to="cart">{t("cart")}</NavLink>
+          <NavLink to="/contact">{t("contact")}</NavLink>
 
         </Grid>
 

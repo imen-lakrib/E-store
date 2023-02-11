@@ -1,6 +1,15 @@
 {
-    "students":"students",
-    "login":"login",
-    "logout":"logout",
-    "login_dashboard": "login in dashboard"
+    "students": "students",
+    "login": "login",
+    "logout": "logout",
+    "login_dashboard": "login in dashboard",
+    "rights": "All Rights Reserved for ",
+    "home": "Home",
+    "shop": "Shop",
+    "cart": "Cart",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "register":"register" ,
+    "my_orders":"my Orders",
+    "estore":"E-store"
 }

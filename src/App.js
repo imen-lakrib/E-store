@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Footer from './components/footer/Footer'
 import Header from './components/header/Header'
@@ -23,7 +23,11 @@ import Admin from './pages/admin/Admin'
 function App() {
   // language:
   const [locale, setLocale] = useState(i18n.language);
-  const [direction, setDirection] = useState("ltr");
+  const [direction, setDirection] = useState( localStorage.getItem("direction") || "ltr");
+
+  useEffect(() => {
+    localStorage.setItem("direction", direction);
+  }, [direction]);
 
   return (
     <div style={{direction: direction === "rtl" ? "rtl" : "ltr"}}>

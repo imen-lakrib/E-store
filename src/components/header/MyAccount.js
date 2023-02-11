@@ -14,10 +14,12 @@ import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slices/authSlic
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/slices/authSlice';
 import AdminOnlyRoute from '../adminOnlyRoute/AdminOnlyRoute';
+import { useTranslation } from 'react-i18next';
 
 export default function MyAccount() {
 
-  
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isLoggedIn = useSelector(selectIsLoggedIn)
@@ -121,15 +123,15 @@ export default function MyAccount() {
         {isLoggedIn ? (
           <div>
             <AdminOnlyRoute>
-            <MenuItem onClick={handleClose}><Link to="/admin/dashboard">Dashboard</Link></MenuItem>
+            <MenuItem onClick={handleClose}><Link to="/admin/dashboard">{t("dashboard")}</Link></MenuItem>
             </AdminOnlyRoute>
-            <MenuItem onClick={logOutUser}>Logout</MenuItem>
+            <MenuItem onClick={logOutUser}>{t("logout")}</MenuItem>
             </div>
         ) : (
           <div>
-            <MenuItem onClick={handleClose}><Link to="/login">Log In</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link to="/register">Register</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link to="/orderHistory">My Orders</Link></MenuItem>
+            <MenuItem onClick={handleClose}><Link to="/login">{t("login")}</Link></MenuItem>
+            <MenuItem onClick={handleClose}><Link to="/register">{t("register")}</Link></MenuItem>
+            <MenuItem onClick={handleClose}><Link to="/orderHistory">{t("my_orders")}</Link></MenuItem>
 
             </div>
         )}

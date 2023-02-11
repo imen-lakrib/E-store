@@ -2,5 +2,14 @@
     "students":"les étudiants",
     "login":"login",
     "logout":"Se déconnecter",
-    "login_dashboard": "Se connecter à la plateforme"
+    "login_dashboard": "Se connecter à la plateforme",
+    "rights":"Toutes les Drois reservé",
+    "home":"Accuiel",
+    "shop":"Shop",
+    "cart":"Cart",
+    "contact":"Contact",
+    "dashboard": "Dashboard",
+    "register":"register" ,
+    "my_orders":"my Orders",
+    "estore":"E-store"
 }

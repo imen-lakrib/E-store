@@ -2,5 +2,14 @@
     "students":"الطلبة",
     "login":"تسجيل الدخول",
     "logout":"خروج",
-    "login_dashboard": "الدخول الى الواجهة"
+    "login_dashboard": "الدخول الى الواجهة",
+    "rights":"جميع الحقوق محفوظة",
+    "home":"الرئيسية",
+    "shop":"المتجر",
+    "cart":"مشترياتي",
+    "contact":"اتصل بنا",
+    "dashboard": "لوحة التحكم",
+    "register":"تسجيل" ,
+    "my_orders":"طلباتي",
+    "estore":"اي-ستور"
 }

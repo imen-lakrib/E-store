@@ -31,6 +31,7 @@ const LANGS = [
 
 export default function LanguagePopover({local, setDirection}) {
   
+  
   const [selectedLanguage,setSelectedLanguage]=useState(LANGS[0])
   function changeLocale(l) {
     if (local !== l) {
