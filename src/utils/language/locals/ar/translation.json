@@ -11,5 +11,7 @@
     "dashboard": "لوحة التحكم",
     "register":"تسجيل" ,
     "my_orders":"طلباتي",
-    "estore":"اي-ستور"
+    "estore":"اي-ستور",
+    "orders": "الطلبيات",
+    "products": "المنتجات"
 }

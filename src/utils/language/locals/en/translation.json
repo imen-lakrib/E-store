@@ -11,5 +11,7 @@
     "dashboard": "Dashboard",
     "register":"register" ,
     "my_orders":"my Orders",
-    "estore":"E-store"
+    "estore":"E-store",
+    "orders": "Orders",
+    "products": "Products"
 }

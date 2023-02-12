@@ -43,7 +43,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/forgotpassword' element={<ForgotPassword />} />
-            <Route path='/admin/*' element={<AdminOnlyRoute><Admin /></AdminOnlyRoute>} />
+            <Route path='/admin/*' element={<AdminOnlyRoute><Admin direction={direction} /></AdminOnlyRoute>} />
           </Routes>
           <Footer />
         </ThemeProvider>
