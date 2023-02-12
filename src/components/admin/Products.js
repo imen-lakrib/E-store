@@ -8,7 +8,7 @@ import {
   Dialog, TextField, DialogContent, Select, MenuItem, InputLabel, DialogTitle, ButtonGroup, Alert, LinearProgress
 } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import { AddBox, PlusOne, Search, UploadFile } from '@mui/icons-material';
+import { AddBox, Delete, Edit, PlusOne, Search, UploadFile } from '@mui/icons-material';
 import { styled, alpha } from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -17,11 +17,11 @@ import Snackbar from '@mui/material/Snackbar';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ClearIcon from '@mui/icons-material/Clear';
 import ReactImageUploading from 'react-images-uploading';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { db, storage } from '../../firebase/config';
 import { toast } from 'react-toastify';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
 import Loader from '../loader/Loader';
 
 
@@ -47,15 +47,15 @@ export default function Products() {
       const productsRef = collection(db, "products");
       const q = query(productsRef, orderBy("createdAt", "desc"));
       const querySnap = await getDocs(q);
-    let allProducts = [];
-    querySnap.forEach((doc) => {
-      return allProducts.push({
-        id: doc.id,
-        data: doc.data(),
+      let allProducts = [];
+      querySnap.forEach((doc) => {
+        return allProducts.push({
+          id: doc.id,
+          data: doc.data(),
+        });
       });
-    });
-    setProducts(allProducts);
-    
+      setProducts(allProducts);
+
 
 
       setIsLoading(false)
@@ -217,63 +217,32 @@ export default function Products() {
     setOpenAdd(false);
   };
 
+  // delete product
+  const deleteProduct = async (id, imgURL) => {
+    setIsLoading(false)
+    try {
+      await deleteDoc(doc(db, "products", id));
+      // Create a reference to the file to delete
+      const productImageRef = ref(storage, imgURL);
+      // Delete the file
+      await deleteObject(productImageRef)
+
+      toast.success(`Product ${id} deleted`)
+      setIsLoading(false)
+      getProducts()
+
+    } catch (error) {
+      setIsLoading(false)
+      toast.error(error.message)
+
+    }
+
+  }
 
 
 
-  // open more 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  //   const handleClick = (event) => {
-  //     console.log(selected.type)
-  //     setAnchorEl(event.currentTarget);
-  //   };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
 
-
-  const StyledMenu = styled((props) => (
-    <Menu
-      elevation={0}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
-      }}
-      {...props}
-    />
-  ))(({ theme }) => ({
-    '& .MuiPaper-root': {
-      borderRadius: 6,
-      marginTop: theme.spacing(1),
-      minWidth: 180,
-      color:
-        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-      boxShadow:
-        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-      '& .MuiMenu-list': {
-        padding: '4px 0',
-      },
-      '& .MuiMenuItem-root': {
-        '& .MuiSvgIcon-root': {
-          fontSize: 18,
-          color: theme.palette.text.secondary,
-          marginRight: theme.spacing(1.5),
-        },
-        '&:active': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            theme.palette.action.selectedOpacity,
-          ),
-        },
-      },
-    },
-  }));
 
 
   /////////////////////////////////////////////////////////////////////////////
@@ -308,7 +277,7 @@ export default function Products() {
                 <Box>
                   <Button
                     variant="outlined"
-                    onClick={() => {getProducts()}}
+                    onClick={() => { getProducts() }}
                     startIcon={<RefreshIcon />}
                   > Actualiser
                   </Button>
@@ -369,7 +338,7 @@ export default function Products() {
                             <TableCell align="left"
                               component="th" scope="row" >
                               <Typography variant="subtitle2" noWrap>
-                                #{index+1}
+                                #{index + 1}
                               </Typography>
                             </TableCell>
 
@@ -383,25 +352,25 @@ export default function Products() {
                             <TableCell align="left"
                               component="th" scope="row" >
                               <Typography variant="subtitle2" noWrap>
-                               {row.data.description}
+                                {row.data.description}
                               </Typography>
                             </TableCell>
 
                             <TableCell align="left"
                               component="th" scope="row" >
-                              <img style={{width:"100px"}} src={row.data.imgURL}/>
+                              <img style={{ width: "100px" }} src={row.data.imgURL} />
                             </TableCell>
 
                             <TableCell align="left"
                               component="th" scope="row" >
                               <Stack direction="row"  >
                                 {row.data.category === "u" ? <Chip label={row.data.category} color="primary" /> :
-                                                                        <Chip label={row.data.category} color="success" />
-                                                                        }
+                                  <Chip label={row.data.category} color="success" />
+                                }
 
                               </Stack>
                             </TableCell>
-                            
+
 
                             <TableCell
                               component="th" scope="row" >
@@ -411,26 +380,18 @@ export default function Products() {
 
                             </TableCell>
 
-                          
+
 
 
 
 
 
                             <TableCell align="center">
-                              <IconButton
-                                aria-label="more"
-                                id="long-button"
-                                aria-controls={open ? 'long-menu' : undefined}
-                                aria-expanded={open ? 'true' : undefined}
-                                aria-haspopup="true"
-                                onClick={(event) => {
-                                  setAnchorEl(event.currentTarget);
-                                  setSelected(row)
-
-                                }}
-                              >
-                                <MoreVertIcon />
+                              <IconButton onClick={() => deleteProduct(row.id, row.data.imgURL)}>
+                                <Delete />
+                              </IconButton>
+                              <IconButton>
+                                <Edit />
                               </IconButton>
                             </TableCell>
 
@@ -518,38 +479,7 @@ export default function Products() {
 
 
 
-      {/* open more */}
-      <div>
-        <StyledMenu
-          id="demo-customized-menu"
-          MenuListProps={{
-            'aria-labelledby': 'demo-customized-button',
-          }}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={() => {
-            // handleClickOpenTreter(selected)
-            handleClose()
 
-          }} disableRipple>
-            <AppRegistrationIcon />Treter
-          </MenuItem>
-
-
-          <Divider sx={{ my: 0.5 }} />
-          <MenuItem onClick={() => {
-            // handleClickOpenCancel()
-            handleClose()
-          }} disableRipple>
-            <ClearIcon />
-            Annuler
-          </MenuItem>
-
-
-        </StyledMenu>
-      </div>
 
 
 
@@ -559,7 +489,7 @@ export default function Products() {
         onClose={handleCloseAdd}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
-        
+
         <DialogContent sx={{ padding: "10px 20px" }}>
           <Typography sx={{ fontSize: '20px', fontWeight: "bold" }}>
             Add A Product
