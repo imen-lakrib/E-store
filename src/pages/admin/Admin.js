@@ -1,20 +1,9 @@
 import { Container, Grid } from '@mui/material'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import Dashboard from '../../components/admin/Dashboard'
 import NavBar from '../../components/admin/NavBar'
 import Orders from '../../components/admin/Orders'
 import Products from '../../components/admin/Products'
-
-// function Admin() {
-//   return (
-//     <>
-//     <NavBar/>
-//     </>
-//   )
-// }
-
-// export default Admin
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,13 +21,14 @@ import MailIcon from '@mui/icons-material/Mail';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux'
 import { selectUserName } from '../../redux/slices/authSlice'
+import { useState } from 'react'
 
 
-const drawerWidth = 240;
 
 export default function Admin({ direction }) {
   const { t } = useTranslation()
-  const userName= useSelector(selectUserName)
+  const userName = useSelector(selectUserName)
+  
 
   const sideNav = [
     {
@@ -62,41 +52,45 @@ export default function Admin({ direction }) {
   return (
 
     <Grid container spacing={2}>
-      
-      <Grid item xs={3}>
-      <Toolbar>
-           <Typography>{userName} </Typography>
-         </Toolbar>
-         <Divider />
-         <List>
-           {sideNav.map((text, index) => (
-             <ListItem key={index} >
-               <ListItemButton>
-                 <ListItemIcon>{text.icon}</ListItemIcon>
-                 <Link to={text.path}>{text.label}</Link>
-               </ListItemButton>
+
+      <Grid item xs={2} >
+        <Toolbar>
+          <Typography>{userName} </Typography>
+        </Toolbar>
+        <Divider />
+        <List>
+          {sideNav.map((text, index) => (
+            <ListItem key={index} >
+
+              <NavLink to={text.path} >
+                <ListItemButton  >
+                  <ListItemIcon>{text.icon}</ListItemIcon>
+                  {text.label}
+                </ListItemButton>
+              </NavLink>
+
             </ListItem>
-           ))}
-         </List>
+          ))}
+        </List>
       </Grid>
-      <Grid item xs={9}>
-      
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'gray', p: 3 }}
-      >
-        <Toolbar />
-        <Container>
-          <Routes>
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/orders' element={<Orders />} />
-            <Route path='/products' element={<Products />} />
-          </Routes>
-        </Container>
+      <Grid item xs={10}>
+
+        <Box
+          component="main"
+          sx={{ p: 1 }}
+
+        >
+          <>
+            <Routes>
+              <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/orders' element={<Orders />} />
+              <Route path='/products' element={<Products />} />
+            </Routes>
+          </>
 
 
-      </Box>
-      
+        </Box>
+
       </Grid>
 
     </Grid>

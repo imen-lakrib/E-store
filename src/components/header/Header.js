@@ -25,7 +25,7 @@ function Header({local, setDirection}) {
   )
 
   return (
-    <AppBar sx={{ backgroundColor: "white", p: 1 }} position="static">
+    <AppBar sx={{ backgroundColor: "white", p: 1 , zIndex:5}} position="static">
       <Grid container spacing={2} sx={{ alignItems: "center" }}>
         <Grid item xs={6} sm={3}>
           {logo}
