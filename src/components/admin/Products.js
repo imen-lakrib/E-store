@@ -23,6 +23,7 @@ import { toast } from 'react-toastify';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
 import Loader from '../loader/Loader';
+import Notiflix from 'notiflix';
 
 
 
@@ -216,6 +217,33 @@ export default function Products() {
   const handleCloseAdd = () => {
     setOpenAdd(false);
   };
+///////////////////////////////////////////////////////
+ // confirm  delete 
+ const confirmDelete=(id, imgURL)=>{
+  Notiflix.Confirm.show(
+    'Confirm Delete',
+    'Do you want to delete this product?',
+    'Delete',
+    'Cancel',
+    function okCb() {
+      deleteProduct(id, imgURL)
+    },
+    function cancelCb() {
+      console.log('Cancelled')
+    },
+    {
+      width: '320px',
+      borderRadius: '8px',
+      titleColor: "orangeRed",
+      okButtonBackground:"orangeRed",
+      cssAnimationStyle:"zoom"
+      // etc...
+    },
+  );
+
+ }
+ 
+
 
   // delete product
   const deleteProduct = async (id, imgURL) => {
@@ -387,7 +415,7 @@ export default function Products() {
 
 
                             <TableCell align="center">
-                              <IconButton onClick={() => deleteProduct(row.id, row.data.imgURL)}>
+                              <IconButton onClick={() => confirmDelete(row.id, row.data.imgURL)}>
                                 <Delete />
                               </IconButton>
                               <IconButton>
@@ -533,42 +561,7 @@ export default function Products() {
 
 
             </Box>
-            {/* <ReactImageUploading
-              multiple
-              name="imgURL"
-              value={product.imgURL}
-              onChange={(e) => handleImageChange(e)}
-              dataURLKey="data_url"
-              acceptType={["jpg", 'png', 'jpeg']}
-            >
-              {({
-                imageList,
-                onImageUpload,
-                onImageRemoveAll,
-                onImageUpdate,
-                onImageRemove,
-                isDragging,
-                dragProps
-              }) => (
-                // write your building UI
-                <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-
-                  <Button
-
-                    sx={{ width: '100%', m: 1, p: 3, backgound: isDragging && "red" }}
-                    variant="outlined"
-                    onClick={imageList.length > 0 ? () => onImageUpdate(0) : onImageUpload}
-                    startIcon={<UploadFile />}
-
-                  >
-                    Choisir une image
-                  </Button>
-
-
-                </Box>
-              )}
-            </ReactImageUploading> */}
-
+           
 
 
             <FormControl fullWidth>
@@ -604,6 +597,8 @@ export default function Products() {
         </DialogContent>
       </Dialog>
       {/*end add raison */}
+
+      
     </>
 
   );
