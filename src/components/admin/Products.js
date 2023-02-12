@@ -24,14 +24,15 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
 import Loader from '../loader/Loader';
 import Notiflix from 'notiflix';
-
+import { useDispatch } from 'react-redux';
+import { STORE_PRODUCTS } from '../../redux/slices/productSlice';
 
 
 
 
 export default function Products() {
 
-
+  const dispatch= useDispatch()
   const [isLoading, setIsLoading] = useState(false)
 
   // all products
@@ -56,9 +57,9 @@ export default function Products() {
         });
       });
       setProducts(allProducts);
-
-
-
+      dispatch(STORE_PRODUCTS({
+        products: allProducts,
+      }))
       setIsLoading(false)
 
     } catch (error) {
