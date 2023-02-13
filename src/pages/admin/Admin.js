@@ -28,7 +28,7 @@ import { useState } from 'react'
 export default function Admin({ direction }) {
   const { t } = useTranslation()
   const userName = useSelector(selectUserName)
-  
+
 
   const sideNav = [
     {
@@ -51,33 +51,35 @@ export default function Admin({ direction }) {
   ]
   return (
 
-    <Grid container spacing={2}>
+    <Grid container spacing={1} sx={{ p: 1}}>
 
-      <Grid item xs={2} >
-        <Toolbar>
-          <Typography>{userName} </Typography>
-        </Toolbar>
-        <Divider />
-        <List>
-          {sideNav.map((text, index) => (
-            <ListItem key={index} >
+      <Grid item xs={2.5} sx={{ backgroundColor: "white", height:"100vh", mt:1 }}>
+     
+          <Toolbar>
+            <Typography>{userName} </Typography>
+          </Toolbar>
+          <Divider />
+          <List>
+            {sideNav.map((text, index) => (
+              <ListItem key={index} >
 
-              <NavLink to={text.path} >
-                <ListItemButton  >
-                  <ListItemIcon>{text.icon}</ListItemIcon>
-                  {text.label}
-                </ListItemButton>
-              </NavLink>
+                <NavLink to={text.path} >
+                  <ListItemButton  >
+                    <ListItemIcon>{text.icon}</ListItemIcon>
+                    {text.label}
+                  </ListItemButton>
+                </NavLink>
 
-            </ListItem>
-          ))}
-        </List>
+              </ListItem>
+            ))}
+          </List>
+   
       </Grid>
-      <Grid item xs={10}>
+      <Grid item xs={9.5}>
 
         <Box
           component="main"
-          sx={{ p: 1 }}
+          
 
         >
           <>

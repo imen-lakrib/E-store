@@ -26,11 +26,26 @@ import Loader from '../loader/Loader';
 import Notiflix from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProducts, STORE_PRODUCTS } from '../../redux/slices/productSlice';
-
+import useFetchCollection from '../../customHooks/useFetchCollection';
 
 
 
 export default function Products() {
+
+  //custom hook
+  // const { data, isLoadingProduct } = useFetchCollection("products")
+  // const dispatch = useDispatch()
+  // const products = useSelector(selectProducts)
+  // console.log(data)
+
+  // useEffect(() => { 
+  //   dispatch(STORE_PRODUCTS({
+  //     products: data,
+  //   }))
+
+  // }, [dispatch, data])
+
+
 
   const dispatch= useDispatch()
   const [isLoading, setIsLoading] = useState(false)

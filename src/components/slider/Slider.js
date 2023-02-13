@@ -1,35 +1,47 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import "./styles.css";
 
 // import required modules
-import { Pagination, Navigation } from "swiper";
+import { Navigation, Pagination } from "swiper";
+import { Typography } from "@mui/material";
 
-export function Slider() {
+export default function Slider() {
   return (
     <>
       <Swiper
-        pagination={{
-          type: "progressbar",
-        }}
+        dir="rtl"
         navigation={true}
-        modules={[Pagination, Navigation]}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Navigation, Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide>
-            <img alt="slider"  src="./assets/images/covers/cover_1.jpg"/>
-        </SwiperSlide>
-        <SwiperSlide><img alt="slider" src="./assets/images/covers/cover_2.jpg"/></SwiperSlide>
-        <SwiperSlide><img alt="slider"  src="./assets/images/covers/cover_3.jpg"/></SwiperSlide>
-        <SwiperSlide><img alt="slider"  src="./assets/images/covers/cover_4.jpg"/></SwiperSlide>
-     
+       
+
+
+
+        <SwiperSlide >
+          <img src="/assets/images/covers/cover_18.jpg"/>
+          <div>
+            <Typography variant="h1">hello world</Typography>
+            <Typography variant="h6"> hello world hello world hello world hello world hello world hello world hello world hello world</Typography>
+
+          </div>
+          </SwiperSlide>
+
+
+
+
+        
       </Swiper>
     </>
   );
