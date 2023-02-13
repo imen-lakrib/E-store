@@ -35,7 +35,7 @@ function App() {
       <BrowserRouter>
       <ThemeProvider theme={appTheme}>
       <ToastContainer />
-          <Header  setDirection={setDirection}/>
+          <Header   setDirection={setDirection}/>
           
           <Routes>
             <Route path='/' element={<Home />} />

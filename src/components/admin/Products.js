@@ -21,11 +21,11 @@ import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebas
 import { db, storage } from '../../firebase/config';
 import { toast } from 'react-toastify';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, setDoc, Timestamp } from 'firebase/firestore';
 import Loader from '../loader/Loader';
 import Notiflix from 'notiflix';
-import { useDispatch } from 'react-redux';
-import { STORE_PRODUCTS } from '../../redux/slices/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectProducts, STORE_PRODUCTS } from '../../redux/slices/productSlice';
 
 
 
@@ -34,9 +34,16 @@ export default function Products() {
 
   const dispatch= useDispatch()
   const [isLoading, setIsLoading] = useState(false)
+  // from onclick row : 
+  const [selectedProductId,setSelectedProductId]= useState({})
+
+  // get the products from redux
+  const products = useSelector(selectProducts)
+  const selectedProduct = products.find((item)=> item.id === selectedProductId)
+  console.log(selectedProduct)
 
   // all products
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
 
   useEffect(() => {
     getProducts()
@@ -56,7 +63,7 @@ export default function Products() {
           data: doc.data(),
         });
       });
-      setProducts(allProducts);
+      // setProducts(allProducts);
       dispatch(STORE_PRODUCTS({
         products: allProducts,
       }))
@@ -268,6 +275,75 @@ export default function Products() {
 
   }
 
+  // edit the product:
+  const editProduct=async(e)=>{
+    e.preventDefault()
+    setIsLoading(true)
+    if(product.imgURL !== selectedProduct.data.imgURL){
+      const productImageRef = ref(storage, selectedProduct.data.imgURL);
+      // Delete the file
+      await deleteObject(productImageRef)
+
+    }
+    try {
+
+      await setDoc(doc(db, "products", selectedProductId), {
+        name: product.name,
+        imgURL: product.imgURL,
+        price: Number(product.price),
+        category: product.category,
+        brand: product.brand,
+        description: product.description,
+        createdAt: Timestamp.now().toDate(),
+        editedAt: Timestamp.now().toDate()
+      });
+
+
+
+
+      setIsLoading(false)
+      toast.success("product updated successfully")
+      getProducts()
+      
+    } catch (error) {
+      setIsLoading(false)
+      toast.error(error.message)
+
+    }
+
+  }
+
+
+  const [openEdit, setOpenEdit] = useState(false);
+  const handleClickOpenEdit = (row) => {
+    console.log(row)
+
+    setProduct({
+      name: row.data.name,
+      imgURL: row.data.imgURL,
+      price: row.data.price,
+      category: row.data.category,
+      brand: row.data.brand,
+      description: row.data.description,
+    })
+    setSelectedProductId(row.id)
+ 
+    
+
+
+    setOpenEdit(true);
+  };
+
+  const handleSubmitEdit= (e) => {
+    editProduct(e)
+    handleCloseEdit()
+
+  };
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
+
 
 
 
@@ -419,7 +495,10 @@ export default function Products() {
                               <IconButton onClick={() => confirmDelete(row.id, row.data.imgURL)}>
                                 <Delete />
                               </IconButton>
-                              <IconButton>
+                              <IconButton onClick={()=>{
+                                setSelectedProductId(row)
+                                handleClickOpenEdit(row)
+                              }}>
                                 <Edit />
                               </IconButton>
                             </TableCell>
@@ -512,7 +591,7 @@ export default function Products() {
 
 
 
-      {/* add raison */}
+      {/* add product */}
       <Dialog
         open={openAdd}
         onClose={handleCloseAdd}
@@ -597,7 +676,94 @@ export default function Products() {
           </form>
         </DialogContent>
       </Dialog>
-      {/*end add raison */}
+      {/*end add product */}
+
+      {/*  edit product*/}
+      <Dialog
+        open={openEdit}
+        onClose={handleCloseEdit}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+
+        <DialogContent sx={{ padding: "10px 20px" }}>
+          <Typography sx={{ fontSize: '20px', fontWeight: "bold" }}>
+            edit the  Product
+          </Typography>
+          <form >
+            <TextField type="text" label="name" variant="outlined" fullWidth sx={{ margin: "10px 0" }}
+              name="name" value={product.name} onChange={(e) => handleInputChange(e)} />
+
+            <TextField type="number" label="price" variant="outlined" fullWidth sx={{ margin: "10px 0" }}
+              name="price" value={product.price} onChange={(e) => handleInputChange(e)} />
+
+
+
+            <Box fullWidth sx={{ margin: "10px 0", p: 2, border: "gray 1px solid" }}>
+              {uploadProgress === 0 ? null :
+                uploadProgress < 100 ? (
+                  <Box sx={{ width: `${uploadProgress}%` }}>
+                    <LinearProgress />
+                  </Box>
+                ) : <CheckCircleIcon sx={{ color: "green" }} />
+              }
+
+              <input
+                type="file"
+                accept="image/*"
+                placeholder="Product Image"
+                name="image"
+                onChange={(e) => handleImageChange(e)}
+              />
+
+              {product.imgURL === "" ? null : (
+                <input
+                  type="text"
+                  // required
+                  placeholder="Image URL"
+                  name="imgURL"
+                  value={product.imgURL}
+                  disabled
+                />
+              )}
+
+
+            </Box>
+           
+
+
+            <FormControl fullWidth>
+              <InputLabel>Category</InputLabel>
+              <Select name='category' value={product.category}
+                onChange={(e) => handleInputChange(e)}>
+                {categories.map((category) => {
+                  return (
+                    <MenuItem key={category.id} value={category.name} >{category.name}</MenuItem>
+
+                  )
+                })}
+
+              </Select>
+            </FormControl>
+
+            <TextField type="text" label="brand" variant="outlined" fullWidth sx={{ margin: "10px 0" }}
+              name="brand" value={product.brand} onChange={(e) => handleInputChange(e)} />
+
+            <TextField
+              type="text" label="description" variant="outlined" fullWidth sx={{ margin: "10px 0" }}
+              name="description" value={product.description} onChange={(e) => handleInputChange(e)}
+              multiline
+              rows={4}
+              defaultValue="Default Value"
+            />
+
+            <DialogActions>
+              <Button onClick={handleCloseEdit} autoFocus>Cancel</Button>
+              <Button onClick={handleSubmitEdit}>Confirmer</Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+      </Dialog>
+      {/*end edit product */}
 
       
     </>
