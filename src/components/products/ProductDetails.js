@@ -68,10 +68,11 @@ const ProductDetails = () => {
           </IconButton></Link>
         </Grid>
           <Grid item xs={5}>
-            <Card >
+            <Card sx={{width:"100%"}}>
               <CardMedia
                 component="img"
-                height="350"
+               sx={{width:"100%"}}
+                cover
                 image={product?.imgURL}
               />            </Card>
           </Grid>
@@ -80,7 +81,9 @@ const ProductDetails = () => {
               <CardContent> <Typography component="div" variant="h4">
               {product?.name}
               </Typography>
-              <Typography  variant="body2">{product?.description}</Typography>
+              <Typography  variant="body2">
+              {`${product?.description}`.substring(0,180).concat("..")}
+                </Typography>
 
               </CardContent>
              

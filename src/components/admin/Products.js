@@ -464,15 +464,15 @@ export default function Products() {
 
                             <TableCell align="left"
                               component="th" scope="row" >
-                              <Typography variant="subtitle2" noWrap>
-                                {row.data.name}
+                              <Typography variant="subtitle2" sx={{width:"150px"}} flexWrap>
+                              {`${row.data.name}`.substring(0,80).concat("..")}
                               </Typography>
                             </TableCell>
 
                             <TableCell align="left"
                               component="th" scope="row" >
-                              <Typography variant="subtitle2" noWrap>
-                                {row.data.description}
+                              <Typography sx={{width:"250px"}} variant="subtitle2" flexWrap>
+                                {`${row.data.description}`.substring(0,150).concat("..")}
                               </Typography>
                             </TableCell>
 

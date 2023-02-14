@@ -35,7 +35,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ProductItem({product, grid}) {
+export default function ProductItem({ product, grid }) {
   const theme = useTheme();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -46,78 +46,76 @@ export default function ProductItem({product, grid}) {
 
   return (
     <>
-    {grid ?
-      <Card sx={{ maxWidth:  300 }}>
-      
-      <Link to={`/product-details/${product.id}`}><CardMedia
-      
-      component="img"
-      height="150"
-      image={product.data.imgURL}
-      alt={product.data.name}
-    /></Link>
-      <CardContent sx={{py:1}}>
-      <Typography variant="h6" color="text.secondary">
-        {product.data.name}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing >
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <VisibilityIcon />
-        </IconButton>
-        
-        <ExpandMore
-        ><Button>Add to cart</Button>
-          
-        </ExpandMore>
-      </CardActions>
-    </Card> :
-    
-    (
-      <Card sx={{ display: 'flex' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="h5">
-          {product.data.name}
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
-          {product.data.description}
-          </Typography>
-        </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-         
-        <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-         
-        </Box>
-      </Box>
-      <CardMedia
-        component="img"
-        sx={{ width: 150 }}
-        image={product.data.imgURL}
-        alt={product.data.name}
-      />
-    </Card>
-    )
-  }
+      {grid ?
+        <Card sx={{ maxWidth: 300 }}>
+
+          <Link to={`/product-details/${product.id}`}><CardMedia
+
+            component="img"
+            height="150"
+            image={product.data.imgURL}
+            alt={product.data.name}
+          /></Link>
+          <CardContent sx={{ py: 1 }}>
+            <Typography variant="h6" color="text.secondary">
+            {`${product.data.name}`.substring(0,40).concat("..")}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing >
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <VisibilityIcon />
+            </IconButton>
+
+            <ExpandMore
+            ><Button>Add to cart</Button>
+
+            </ExpandMore>
+          </CardActions>
+        </Card> :
+
+        (
+          <Card sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <CardContent sx={{ flex: '1 0 auto' }}>
+                <Typography component="div" variant="h5" wrap>
+                {`${product.data.name}`.substring(0,80).concat("..")}
+                </Typography>
+                <Typography sx={{ width: "500px" }} flexWrap variant="subtitle1" color="text.secondary" component="div">
+                {`${product.data.description}`.substring(0,120).concat("..")}
+                </Typography>
+              </CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, py: 1 }}>
+
+                <CardActions disableSpacing >
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton aria-label="share">
+                    <VisibilityIcon />
+                  </IconButton>
+
+                  <ExpandMore
+                  ><Button>Add to cart</Button>
+
+                  </ExpandMore>
+                </CardActions>
+
+              </Box>
+            </Box>
+            <Link to={`/product-details/${product.id}`}><CardMedia
+
+              component="img"
+              sx={{ width: "100%"}}
+              image={product.data.imgURL}
+              alt={product.data.name}
+            /></Link>
+          </Card>
+        )
+      }
     </>
-    
+
   );
 }
