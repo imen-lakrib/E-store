@@ -1,11 +1,14 @@
 import { Container, Grid } from '@mui/material'
 import React from 'react'
+import { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useFetchCollection from '../../customHooks/useFetchCollection'
+import { selectFilterProducts } from '../../redux/slices/filterSlice'
 import { selectProducts, STORE_PRODUCTS } from '../../redux/slices/productSlice'
 import ProductFilter from './ProductFilter'
 import ProductsList from './ProductsList'
+
 
 const Products = () => {
    //custom hook
@@ -29,7 +32,7 @@ const Products = () => {
          <ProductFilter/>
         </Grid>
         <Grid item xs={9}>
-          <ProductsList products={products}/>
+          <ProductsList  products={products}/>
         </Grid>
         
       </Grid>

@@ -10,7 +10,7 @@ import AppsRoundedIcon from '@mui/icons-material/AppsRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import Search from '../Search';
-export default function BarFilter({products, setGrid, search, setSearch}) {
+export default function BarFilter({filtredProducts, setGrid, search, setSearch}) {
   return (
     <Paper
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center'}}
@@ -21,7 +21,7 @@ export default function BarFilter({products, setGrid, search, setSearch}) {
       <IconButton   onClick={()=> setGrid(false)}>
         <MenuRoundedIcon />
       </IconButton>
-      <Typography><strong>{products.length}</strong>products </Typography> 
+      <Typography><strong>{filtredProducts.length}</strong> products </Typography> 
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
      <Search value={search} onChange={(e)=> setSearch(e.target.value)}/>
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
