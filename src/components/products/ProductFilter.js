@@ -8,7 +8,7 @@ const ProductFilter = () => {
     setAge(event.target.value);
   };
   return (
-    <Card sx={{p:2}}>
+    <Card sx={{p:2}} >
       <FormLabel id="demo-radio-buttons-group-label">Products Filter</FormLabel>
       <Box py={2} >
       <FormControl fullWidth>

@@ -15,13 +15,13 @@ export default function BarFilter({filtredProducts, setGrid, search, setSearch, 
     <Paper
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center'}}
     >
-      <IconButton   onClick={()=> setGrid(true)}>
+      <IconButton sx={{display:{xs:"none",md:"flex" }}}   onClick={()=> setGrid(true)}>
         <AppsRoundedIcon />
       </IconButton>
-      <IconButton   onClick={()=> setGrid(false)}>
+      <IconButton sx={{display:{xs:"none",md:"flex" }}}   onClick={()=> setGrid(false)}>
         <MenuRoundedIcon />
       </IconButton>
-      <Typography><strong>{filtredProducts.length}</strong> products </Typography> 
+      <Typography sx={{display:{xs:"none",md:"flex" }}} ><strong>{filtredProducts.length}</strong> products </Typography> 
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
      <Search value={search} onChange={(e)=> setSearch(e.target.value)}/>
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />

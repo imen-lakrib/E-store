@@ -45,7 +45,7 @@ const ProductsList = ({ products }) => {
       {products.length === 0 ? (<Typography>there is no product to show</Typography>) : 
       (filtredProducts.map(product => {
         return (
-          <Grid item xs={grid? 4: 12}><ProductItem  product={product} grid={grid}/></Grid>
+          <Grid item xs={grid? 12: 12} sm={grid? 6: 12} md={grid? 6: 12} lg={grid? 4: 12}><ProductItem  product={product} grid={grid}/></Grid>
 
         )
       }))}

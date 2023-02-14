@@ -97,12 +97,12 @@ export default function MyAccount() {
         <MenuItem  >
           {isLoggedIn? (
             <>
-             <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
+             <Avatar sx={{ width: 35, height: 35 }} alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
               <Typography sx={{display:{ xs: 'none', sm: 'flex' }}} flexWrap >{userNameUser}</Typography>
             </>
           ):(
             <>
-            <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src="" />
+            <Avatar sx={{ width: 35, height: 35 }} alt="Remy Sharp" src="" />
             </>
           )}
              

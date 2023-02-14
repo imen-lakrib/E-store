@@ -1,4 +1,4 @@
-import {  BottomNavigation, Paper, Typography } from '@mui/material'
+import {  BottomNavigation, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,11 +6,11 @@ function Footer() {
   const { t } = useTranslation()
   return (
     
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} >
-      <BottomNavigation sx={{backgroundColor:"blue"}}>
-        <Typography> {t("rights")}<span style={{color:"white"}} >Imen Lakrib</span>-2023</Typography>
+      <Grid xs={12} sx={{ width:"100%",position: 'fixed', bottom: 0, left: 0, right: 0 }} >
+      <BottomNavigation sx={{backgroundColor:"gray", alignItems:"center" }}>
+        <Typography sx={{fontSize: { xs: '10px',sm:"14px", md: '16px' }}}> {t("rights")}<span style={{color:"white"}} >Imen Lakrib</span>-2023</Typography>
       </BottomNavigation>
-      </Paper>
+      </Grid>
   
   )
 }

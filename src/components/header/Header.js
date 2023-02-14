@@ -27,12 +27,12 @@ function Header({ local, setDirection }) {
   )
 
   return (
-    <AppBar sx={{ backgroundColor: "white", p: 1, zIndex: 5 }} position="static">
+    <AppBar sx={{ backgroundColor: "white", p: 2, zIndex: 5 }} position="static">
       <Grid container spacing={2} sx={{ alignItems: "center" }}>
 
         {/* mobile menu */}
 
-        <Grid xs={12} sx={{ display: { xs: 'flex', md: 'none' }, alignItems: "center", justifyContent: "space-between", pt: 2 }}>
+        <Grid xs={12} sx={{ display: { xs: 'flex', md: 'none' }, alignItems: "center", justifyContent: "space-around", pt: 2 }}>
           <Grid sx={{ color: "blue" }}>
             <MobilePopover />
 
@@ -52,26 +52,34 @@ function Header({ local, setDirection }) {
 
 
       {/* normal menu */}
-      <Grid item xs={6} md={3} sx={{ display: { xs: 'none', md: 'flex' } }} >
+     <Grid xs={12} sx={{display:{ xs: 'none', md: 'flex' }, alignItems: "center", justifyContent: "space-around" , pt: 2 }}>
+     <Grid >
         {logo}
       </Grid>
 
-      <Grid item xs={0} md={6} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center", justifyContent: "space-evenly" }}>
+      <Grid sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center", justifyContent: "center" }}>
 
-        <NavLink to="/">{t("home")}</NavLink>
-        <NavLink to="/shop">{t("shop")}</NavLink>
-        <NavLink to="cart">{t("cart")}</NavLink>
-        <NavLink to="/contact">{t("contact")}</NavLink>
+        <Box sx={{mx:2}}><NavLink  to="/">{t("home")}</NavLink></Box>
+        <Box sx={{mx:2}}> <NavLink to="/#products">{t("shop")}</NavLink></Box>
 
+        <Box sx={{mx:2}}> <NavLink to="cart">{t("cart")}</NavLink></Box>
+
+        <Box sx={{mx:2}}> <NavLink to="/contact">{t("contact")}</NavLink></Box>
+
+       
+       
+       
       </Grid>
 
-      <Grid item xs={6} md={3} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center" }}>
+      <Grid  sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center" }}>
         <LanguagePopover local={local} setDirection={setDirection} />
         <CartPopover />
         <MyAccount />
 
 
       </Grid>
+
+     </Grid>
 
 
 
