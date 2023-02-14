@@ -67,7 +67,7 @@ const ProductDetails = () => {
             <ArrowBack/> Back to shop
           </IconButton></Link>
         </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={12} md={5}>
             <Card sx={{width:"100%"}}>
               <CardMedia
                 component="img"
@@ -76,7 +76,7 @@ const ProductDetails = () => {
                 image={product?.imgURL}
               />            </Card>
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={12} md={5}>
             <Card >
               <CardContent> <Typography component="div" variant="h4">
               {product?.name}

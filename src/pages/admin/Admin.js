@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material'
+import { Card, Container, Grid, IconButton } from '@mui/material'
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import Dashboard from '../../components/admin/Dashboard'
 import NavBar from '../../components/admin/NavBar'
@@ -22,7 +22,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux'
 import { selectUserName } from '../../redux/slices/authSlice'
 import { useState } from 'react'
-
+import { ArrowBack, ArrowForward, CloseFullscreen, OpenInBrowser } from '@mui/icons-material'
+import BarChartIcon from '@mui/icons-material/BarChart';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import CategoryIcon from '@mui/icons-material/Category';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 
 
 export default function Admin({ direction }) {
@@ -30,20 +35,26 @@ export default function Admin({ direction }) {
   const userName = useSelector(selectUserName)
 
 
+  const [open, setOpen] = useState(false)
+  const toggleMenu = () => {
+    setOpen(!open)
+  }
+
+
   const sideNav = [
     {
       label: t("dashboard"),
-      icon: <InboxIcon />,
+      icon: <BarChartIcon />,
       path: "/admin/dashboard"
     },
     {
       label: t("orders"),
-      icon: <InboxIcon />,
+      icon: <AddShoppingCartIcon />,
       path: "/admin/orders"
     },
     {
       label: t("products"),
-      icon: <InboxIcon />,
+      icon: <CategoryIcon />,
       path: "/admin/products"
     },
 
@@ -51,35 +62,58 @@ export default function Admin({ direction }) {
   ]
   return (
 
-    <Grid container spacing={1} sx={{ p: 1}}>
+    <Grid container spacing={1} sx={{ p: 1 }}>
 
-      <Grid item xs={2.5} sx={{ backgroundColor: "white", height:"100vh", mt:1 }}>
-     
-          <Toolbar>
-            <Typography>{userName} </Typography>
-          </Toolbar>
-          <Divider />
-          <List>
-            {sideNav.map((text, index) => (
-              <ListItem key={index} >
+      {/* just for mobile */}
+      <Grid item xs={12} sx={{ backgroundColor: "white", my: 1 , display:{xs:"block", md:"none"}}}>
 
-                <NavLink to={text.path} >
-                  <ListItemButton  >
-                    <ListItemIcon>{text.icon}</ListItemIcon>
-                    {text.label}
-                  </ListItemButton>
-                </NavLink>
+        
+        <Card sx={{display:"flex", justifyContent:"space-evenly", alignItems:"center"}}>
+          {sideNav.map((text, index) => (
+            <Box key={index}  >
+              <NavLink to={text.path} >
+                 {text.icon}
+              </NavLink>
+            </Box>
+          ))}
+        </Card>
 
-              </ListItem>
-            ))}
-          </List>
-   
       </Grid>
-      <Grid item xs={9.5}>
+
+
+      {/* normal  */}
+      <Grid item md={open ? 2.5 : 1} xs={0}  sx={{ backgroundColor: "white", height: "100vh", mt: 1,  display:{xs:"none", md:"block"} }}>
+
+        <Toolbar sx={{ justifyContent: "flex-end" }} >
+          <IconButton onClick={toggleMenu}>
+            {open ? <KeyboardDoubleArrowLeftIcon /> : <KeyboardDoubleArrowRightIcon />}
+
+
+          </IconButton>
+        </Toolbar>
+        <Divider />
+        <List>
+          {sideNav.map((text, index) => (
+            <ListItem key={index} sx={{ justifyContent: "start" }} >
+
+              <NavLink to={text.path} >
+                <Box sx={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
+                 <IconButton>{text.icon}</IconButton>   
+                  <Typography sx={{ display: open ? "block" : "none"}}>  {text.label}</Typography>
+                  </Box>
+
+              </NavLink>
+
+            </ListItem>
+          ))}
+        </List>
+
+      </Grid>
+      <Grid item xs={12} md={open ? 9.5 : 11}>
 
         <Box
           component="main"
-          
+
 
         >
           <>

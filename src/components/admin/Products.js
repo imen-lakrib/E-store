@@ -399,20 +399,21 @@ export default function Products() {
                     variant="outlined"
                     onClick={() => { getProducts() }}
                     startIcon={<RefreshIcon />}
-                  > Actualiser
+                  > <Typography sx={{display:{xs:"none", md:"block"}}}>Actualiser</Typography>
+          
                   </Button>
                   <Button
                     variant="outlined"
                     onClick={handleClickOpenAdd}
                     startIcon={<PlusOne />}
-                  >
-                    Ajouter
+                    > <Typography sx={{display:{xs:"none", md:"block"}}}>Ajouter</Typography>
+                    
                   </Button>
                 </Box>
 
               </Stack>
               <Box sx={{ m: 1 }}>
-                <FormControl sx={{ mx: 1, width: '50%' }} variant="outlined">
+                <FormControl sx={{ mx: 1, width: {xs:"100%", md:"50%"} }} variant="outlined">
                   <OutlinedInput
                     size='small'
                     placeholder='Chercher'
