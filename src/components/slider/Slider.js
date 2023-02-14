@@ -13,11 +13,11 @@ import "./styles.css";
 import { Navigation, Pagination } from "swiper";
 import { Typography } from "@mui/material";
 
-export default function Slider() {
+export default function Slider({direction}) {
   return (
     <>
       <Swiper
-        dir="rtl"
+        // dir={direction}
         navigation={true}
         pagination={{
           clickable: true,
@@ -31,6 +31,15 @@ export default function Slider() {
 
         <SwiperSlide >
           <img src="/assets/images/covers/cover_18.jpg"/>
+          <div>
+            <Typography variant="h1">hello world</Typography>
+            <Typography variant="h6"> hello world hello world hello world hello world hello world hello world hello world hello world</Typography>
+
+          </div>
+          </SwiperSlide>
+
+          <SwiperSlide >
+          <img src="/assets/images/covers/cover_19.jpg"/>
           <div>
             <Typography variant="h1">hello world</Typography>
             <Typography variant="h6"> hello world hello world hello world hello world hello world hello world hello world hello world</Typography>

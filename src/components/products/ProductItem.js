@@ -35,7 +35,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ProductItem({ product, grid }) {
+export default function ProductItem({ product, grid}) {
   const theme = useTheme();
 
   const [expanded, setExpanded] = React.useState(false);

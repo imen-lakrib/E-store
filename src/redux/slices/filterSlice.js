@@ -18,10 +18,42 @@ const filterSlice = createSlice({
         state.filtredProducts = tempProducts
         
     },
+    SORT_PRODUCTS: (state, action)=>{
+      const {products, sort} = action.payload
+      console.log(sort)
+      let tempProducts = []
+      if (sort === "latest"){
+        tempProducts = products
+      }
+      if (sort === "lowest-price"){
+        tempProducts= products.slice().sort((a,b)=>{
+          return a.data.price - b.data.price
+        })
+      }
+      if (sort === "highest-price"){
+        tempProducts= products.slice().sort((a,b)=>{
+          return b.data.price - a.data.price
+        })
+      }
+      if (sort === "a-z"){
+        tempProducts= products.slice().sort((a,b)=>{
+          return a.data.name.localeCompare(b.data.name)
+        })
+      }
+      if (sort === "z-a"){
+        tempProducts= products.slice().sort((a,b)=>{
+          return b.data.name.localeCompare(a.data.name)
+        })
+      }
+
+
+      state.filtredProducts = tempProducts
+      
+  },
   }
 });
 
-export const {FILTER_BY_SEARCH, } = filterSlice.actions
+export const {FILTER_BY_SEARCH,SORT_PRODUCTS } = filterSlice.actions
 
 export const selectFilterProducts = (state)=> state.filter.filtredProducts
 

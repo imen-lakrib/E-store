@@ -40,7 +40,7 @@ function App() {
           <Header   setDirection={setDirection}/>
           
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home direction={direction} />} />
             <Route path='/product-details/:id' element={<ProductDetails/>}/>
             <Route path='/contact' element={<Contact />} />
             <Route path='/login' element={<Login />} />

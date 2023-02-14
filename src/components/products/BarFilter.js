@@ -10,7 +10,7 @@ import AppsRoundedIcon from '@mui/icons-material/AppsRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import Search from '../Search';
-export default function BarFilter({filtredProducts, setGrid, search, setSearch}) {
+export default function BarFilter({filtredProducts, setGrid, search, setSearch, sort, setSort}) {
   return (
     <Paper
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center'}}
@@ -28,9 +28,9 @@ export default function BarFilter({filtredProducts, setGrid, search, setSearch})
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
       <InputLabel id="demo-select-small">Sord By</InputLabel>
       <Select
-        // value={age}
-        label="Age"
-        // onChange={handleChange}
+        value={sort}
+        label="sort"
+        onChange={(e)=>setSort(e.target.value)}
       >
        
         <MenuItem value="latest">Latest</MenuItem>
