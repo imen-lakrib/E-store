@@ -22,7 +22,7 @@ const Products = () => {
 
   }, [dispatch, data])
   return (
-    <Container sx={{ p:2}}>
+    <Container sx={{ p:2}} >
       <Grid container spacing={1}>
        
         <Grid item xs={3}>

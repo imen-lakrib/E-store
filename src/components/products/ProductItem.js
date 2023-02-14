@@ -20,7 +20,10 @@ import IconButton from '@mui/material/IconButton';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
-
+import { PlusOne, ShowerRounded } from '@mui/icons-material';
+import { Button } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link } from 'react-router-dom';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -46,37 +49,34 @@ export default function ProductItem({product, grid}) {
     {grid ?
       <Card sx={{ maxWidth:  300 }}>
       
-      <CardMedia
-        component="img"
-        height="150"
-        image={product.data.imgURL}
-        alt={product.data.name}
-      />
-      <CardContent>
-      <Typography variant="h5" color="text.secondary">
+      <Link to={`/product-details/${product.id}`}><CardMedia
+      
+      component="img"
+      height="150"
+      image={product.data.imgURL}
+      alt={product.data.name}
+    /></Link>
+      <CardContent sx={{py:1}}>
+      <Typography variant="h6" color="text.secondary">
         {product.data.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-        {product.data.description}
-        </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing >
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
-          <ShareIcon />
+          <VisibilityIcon />
         </IconButton>
+        
         <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
+        ><Button>Add to cart</Button>
+          
         </ExpandMore>
       </CardActions>
-    </Card> :(
+    </Card> :
+    
+    (
       <Card sx={{ display: 'flex' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
