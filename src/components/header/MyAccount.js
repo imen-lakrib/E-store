@@ -87,22 +87,22 @@ export default function MyAccount() {
     <div>
 
 
-      <Link aria-controls={open ? 'basic-menu' : undefined}
+      <Link p={1} aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}>
           {/* overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto; */}
-        <MenuItem disableRipple >
+        <MenuItem  >
           {isLoggedIn? (
             <>
-             <Avatar alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
-              <div style={{ overflowWrap:"anywhere",fontSize:"10px"}} >{userNameUser}</div>
+             <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src="/assets/images/avatars/avatar_1.jpg" />
+              <Typography sx={{display:{ xs: 'none', sm: 'flex' }}} flexWrap >{userNameUser}</Typography>
             </>
           ):(
             <>
-            <Avatar alt="Remy Sharp" src="" />
+            <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src="" />
             </>
           )}
              

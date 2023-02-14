@@ -43,8 +43,8 @@ export default function CartPopover() {
         onClick={handleOpen}
         sx={{
           padding: 0,
-          width: 44,
-          height: 44,
+          width: 24,
+          height: 24,
           ...(open && {
             bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity),
           }),
@@ -64,7 +64,7 @@ export default function CartPopover() {
             p: 1,
             mt: 1.5,
             ml: 0.75,
-            width: 180,
+            width: 120,
             '& .MuiMenuItem-root': {
               px: 1,
               typography: 'body2',
@@ -76,7 +76,7 @@ export default function CartPopover() {
         <Stack spacing={0.75}>
           {LANGS.map((option) => (
             <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => handleClose()}>
-              <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, mr: 2 }} />
+              <Box component="img" alt={option.label} src={option.icon} sx={{ width: 25, mr: 2 }} />
 
               {option.label}
             </MenuItem>

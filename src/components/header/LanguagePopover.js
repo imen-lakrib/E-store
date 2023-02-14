@@ -56,12 +56,12 @@ export default function LanguagePopover({local, setDirection}) {
       <IconButton
         onClick={handleOpen}
         sx={{
-          width: 40,
-          height: 40,
+          width: 25,
+          height: 25,
           ...(open && { bgcolor: 'action.selected' }),
         }}
       >
-        <Box component="img" sx={{ width: 28, height: 20 }} src={selectedLanguage.icon ? selectedLanguage.icon : LANGS[0].icon} />
+        <Box component="img" sx={{ width: 25, height: 20 }} src={selectedLanguage.icon ? selectedLanguage.icon : LANGS[0].icon} />
       </IconButton> 
 
 
@@ -77,7 +77,7 @@ export default function LanguagePopover({local, setDirection}) {
             p: 1,
             mt: 1.5,
             ml: 0.75,
-            width: 180,
+            width: 120,
             '& .MuiMenuItem-root': {
               px: 1,
               typography: 'body2',
@@ -95,7 +95,7 @@ export default function LanguagePopover({local, setDirection}) {
               setDirection(option.dir)
               handleClose()
             }}>
-              <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, height: 20, mr: 2 }} />
+              <Box component="img" alt={option.label} src={option.icon} sx={{ width: 25, height: 20, mr: 2 }} />
               {option.label}
             </MenuItem>
           ))}

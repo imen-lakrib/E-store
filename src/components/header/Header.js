@@ -1,4 +1,4 @@
-import { AppBar,Grid, MenuItem, Typography } from '@mui/material'
+import { AppBar, Box, Grid, MenuItem, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import StoreIcon from '@mui/icons-material/Store';
@@ -9,7 +9,7 @@ import MobilePopover from './MobilePopover';
 import { useTranslation } from 'react-i18next';
 
 
-function Header({local, setDirection}) {
+function Header({ local, setDirection }) {
   const { t } = useTranslation()
 
   // sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
@@ -18,43 +18,87 @@ function Header({local, setDirection}) {
   const logo = (
     <Link to="/">
       <MenuItem  >
-        <StoreIcon />{t("estore")}
+        <StoreIcon />
+        <Typography sx={{display: { xs: 'none', sm: 'flex' }}}> {t("estore")}</Typography>
+       
       </MenuItem>
-  
+
     </Link>
   )
 
   return (
-    <AppBar sx={{ backgroundColor: "white", p: 1 , zIndex:5}} position="static">
+    <AppBar sx={{ backgroundColor: "white", p: 1, zIndex: 5 }} position="static">
       <Grid container spacing={2} sx={{ alignItems: "center" }}>
-        <Grid item xs={6} sm={3}>
-          {logo}
-        </Grid>
-        <Grid item xs={0} sm={6} sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: "center", justifyContent: "space-evenly" }}>
 
-          <NavLink to="/">{t("home")}</NavLink>
-          <NavLink to="/shop">{t("shop")}</NavLink>
-          <NavLink to="cart">{t("cart")}</NavLink>
-          <NavLink to="/contact">{t("contact")}</NavLink>
+        {/* mobile menu */}
 
-        </Grid>
-
-        <Grid item xs={4} sm={3} sx={{ display: "flex", alignItems: "center" }}>
-          <LanguagePopover local={local} setDirection={setDirection} />
-          <CartPopover />
-          <MyAccount />
+        <Grid xs={12} sx={{ display: { xs: 'flex', md: 'none' }, alignItems: "center", justifyContent: "space-between", pt: 2 }}>
+          <Grid sx={{ color: "blue" }}>
+            <MobilePopover />
 
 
-        </Grid>
-        <Grid item xs={2} sm={0} sx={{ color: "blue", display: { xs: 'block', sm: 'none' } }}>
-          <MobilePopover />
+          </Grid>
+          <Grid >
+            {logo}
+          </Grid>
+          <Grid sx={{ display: "flex", alignItems: "center" }}>
+            <LanguagePopover local={local} setDirection={setDirection} />
+            <CartPopover />
+            <MyAccount />
 
 
-        </Grid>
+          </Grid>
+      </Grid>
+
+
+      {/* normal menu */}
+      <Grid item xs={6} md={3} sx={{ display: { xs: 'none', md: 'flex' } }} >
+        {logo}
+      </Grid>
+
+      <Grid item xs={0} md={6} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center", justifyContent: "space-evenly" }}>
+
+        <NavLink to="/">{t("home")}</NavLink>
+        <NavLink to="/shop">{t("shop")}</NavLink>
+        <NavLink to="cart">{t("cart")}</NavLink>
+        <NavLink to="/contact">{t("contact")}</NavLink>
+
+      </Grid>
+
+      <Grid item xs={6} md={3} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center" }}>
+        <LanguagePopover local={local} setDirection={setDirection} />
+        <CartPopover />
+        <MyAccount />
 
 
       </Grid>
-    </AppBar>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </Grid>
+    </AppBar >
   )
 }
 
