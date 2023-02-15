@@ -5,11 +5,8 @@ import { FILTER_BY_BRAND, FILTER_BY_CATEGORY, FILTER_BY_PRICE } from '../../redu
 import { GET_PRICE_RANGE, selectMaxPrice, selectMinPrice } from '../../redux/slices/productSlice';
 
 const ProductFilter = ({products}) => {
-  const [age, setAge] = React.useState('');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  
 
   // filter by category
   const dispatch = useDispatch()
@@ -36,13 +33,20 @@ const ProductFilter = ({products}) => {
   // filter by price:
   const minPrice = useSelector(selectMinPrice)
   const maxPrice = useSelector(selectMaxPrice)
-  const [price, setPrice]= useState(300)
+  const [price, setPrice]= useState(maxPrice)
 
 
   useEffect(()=>{
     dispatch(FILTER_BY_PRICE({products,price}))
 
   },[dispatch, products, price])
+
+  // clear all filters
+  const clearFilters=()=>{
+    setCategory("All")
+    setBrand("All")
+    setPrice(maxPrice)
+  }
 
 
 
@@ -86,7 +90,7 @@ const ProductFilter = ({products}) => {
 
       <Slider value={price} onChange={(e)=>setPrice(e.target.value)} min={minPrice} max={maxPrice} aria-label="Default" valueLabelDisplay="auto" />
     </Box>
-    <Button>Clear Filter</Button>
+    <Button onClick={clearFilters} >Clear Filter</Button>
     </Card>
   )
 }
