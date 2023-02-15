@@ -54,18 +54,35 @@ const filterSlice = createSlice({
     let tempProducts = []
     if(category === "All"){
       tempProducts = products
-      console.log(`yooooooooooooooom ${tempProducts}`)
     } else {
       tempProducts = products.filter(product => product.data.category === category)
     }
     state.filtredProducts = tempProducts 
 
 
-  }
+  },
+  FILTER_BY_BRAND: (state, action)=>{
+    const {products, brand} = action.payload
+    let tempProducts = []
+    if (brand === "All"){
+      tempProducts = products
+    } else {
+      tempProducts = products.filter(product => product.data.brand === brand)
+
+    }
+   
+   
+   
+   
+
+
+    state.filtredProducts = tempProducts
+    
+},
   }
 });
 
-export const {FILTER_BY_SEARCH,SORT_PRODUCTS, FILTER_BY_CATEGORY } = filterSlice.actions
+export const {FILTER_BY_SEARCH,SORT_PRODUCTS, FILTER_BY_CATEGORY , FILTER_BY_BRAND} = filterSlice.actions
 
 export const selectFilterProducts = (state)=> state.filter.filtredProducts
 

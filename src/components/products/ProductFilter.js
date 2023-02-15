@@ -1,7 +1,7 @@
 import { Box, Button, Card, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, Slider, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { FILTER_BY_CATEGORY } from '../../redux/slices/filterSlice';
+import { FILTER_BY_BRAND, FILTER_BY_CATEGORY } from '../../redux/slices/filterSlice';
 
 const ProductFilter = ({products}) => {
   const [age, setAge] = React.useState('');
@@ -10,18 +10,31 @@ const ProductFilter = ({products}) => {
     setAge(event.target.value);
   };
 
-  // 
+  // filter by category
   const dispatch = useDispatch()
   const [category, setCategory]=useState("All")
   const allCategories = [
     "All",
     ...new Set(products.map(product => product.data.category))
   ]
+
   const filterProducts=(cat) =>{
     setCategory(cat)
     dispatch(FILTER_BY_CATEGORY({products,category:cat}))
 
   }
+ 
+  // filter by brand
+  const [brand, setBrand]= useState("All")
+
+  useEffect(()=>{
+    dispatch(FILTER_BY_BRAND({products,brand}))
+
+  },[dispatch, products, brand])
+
+
+
+ 
   return (
     <Card sx={{p:2}} >
       <FormLabel id="demo-radio-buttons-group-label">Products Filter</FormLabel>
@@ -30,15 +43,13 @@ const ProductFilter = ({products}) => {
       <FormLabel id="demo-radio-buttons-group-label">Brand:</FormLabel>
 
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
+           value={brand}
+           label="sort"
+           onChange={(e)=>setBrand(e.target.value)}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value="All">All</MenuItem>
+          <MenuItem value="Nike">Nike</MenuItem>
+          <MenuItem value="Dz">DZ</MenuItem>
         </Select>
       </FormControl>
     </Box>
