@@ -36,7 +36,6 @@ export default function Products() {
   // const { data, isLoadingProduct } = useFetchCollection("products")
   // const dispatch = useDispatch()
   // const products = useSelector(selectProducts)
-  // console.log(data)
 
   // useEffect(() => { 
   //   dispatch(STORE_PRODUCTS({
@@ -55,7 +54,6 @@ export default function Products() {
   // get the products from redux
   const products = useSelector(selectProducts)
   const selectedProduct = products.find((item)=> item.id === selectedProductId)
-  console.log(selectedProduct)
 
   // all products
   // const [products, setProducts] = useState([])
@@ -129,7 +127,6 @@ export default function Products() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]
-    console.log(file.name)
     // date.now() add the time to the name of the images to avoid replacements of images thats has the same name
     const storageRef = ref(storage, `products/images/${Date.now()}${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -331,7 +328,6 @@ export default function Products() {
 
   const [openEdit, setOpenEdit] = useState(false);
   const handleClickOpenEdit = (row) => {
-    console.log(row)
 
     setProduct({
       name: row.data.name,

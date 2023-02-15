@@ -18,7 +18,6 @@ const ProductsList = ({ products }) => {
 
   //
   const filtredProducts= useSelector(selectFilterProducts)
-  console.log(filtredProducts)
 
   const dispatch= useDispatch()
 // filter by search
@@ -29,7 +28,6 @@ const ProductsList = ({ products }) => {
   // filter by sort
   useEffect(()=>{
     dispatch(SORT_PRODUCTS({products,sort}))
-    console.log(sort)
 
   },[dispatch, products, sort])
 
@@ -43,9 +41,9 @@ const ProductsList = ({ products }) => {
 
       <Grid container spacing={1} id="products" sx={{my:1}}>
       {products.length === 0 ? (<Typography>there is no product to show</Typography>) : 
-      (filtredProducts.map(product => {
+      (filtredProducts.map((product, index) => {
         return (
-          <Grid item xs={grid? 12: 12} sm={grid? 6: 12} md={grid? 6: 12} lg={grid? 4: 12}><ProductItem  product={product} grid={grid}/></Grid>
+          <Grid  key={index} item xs={grid? 12: 12} sm={grid? 6: 12} md={grid? 6: 12} lg={grid? 4: 12}><ProductItem  product={product} grid={grid}/></Grid>
 
         )
       }))}

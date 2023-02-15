@@ -44,7 +44,7 @@ const Products = () => {
       <Grid container spacing={1} >
        
         <Grid item xs={0} sm={0} md={3} sx={{display:{xs:"none", md:"block"}}} >
-         <ProductFilter/>
+         <ProductFilter  products={products}/>
         </Grid>
         <Grid item xs={12} sm={12} md={9} >
           <ProductsList  products={products}/>

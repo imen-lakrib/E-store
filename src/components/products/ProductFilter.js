@@ -1,12 +1,27 @@
 import { Box, Button, Card, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, Slider, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { FILTER_BY_CATEGORY } from '../../redux/slices/filterSlice';
 
-const ProductFilter = () => {
+const ProductFilter = ({products}) => {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  // 
+  const dispatch = useDispatch()
+  const [category, setCategory]=useState("All")
+  const allCategories = [
+    "All",
+    ...new Set(products.map(product => product.data.category))
+  ]
+  const filterProducts=(cat) =>{
+    setCategory(cat)
+    dispatch(FILTER_BY_CATEGORY({products,category:cat}))
+
+  }
   return (
     <Card sx={{p:2}} >
       <FormLabel id="demo-radio-buttons-group-label">Products Filter</FormLabel>
@@ -30,15 +45,15 @@ const ProductFilter = () => {
     <Box py={2} >
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Category:</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="female"
-        name="radio-buttons-group"
-      >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
-        <FormControlLabel value="other" control={<Radio />} label="Other" />
-      </RadioGroup>
+      {allCategories.map((cat, index) =>{
+        return(<Button sx={{backgroundColor:cat === category ? "red": null}} key={index}
+        onClick={()=> filterProducts(cat)}
+        >
+          {cat}
+        </Button>)
+      })}
+    
+    
     </FormControl>
     </Box>
       <Box py={2} >

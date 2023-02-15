@@ -20,7 +20,6 @@ const filterSlice = createSlice({
     },
     SORT_PRODUCTS: (state, action)=>{
       const {products, sort} = action.payload
-      console.log(sort)
       let tempProducts = []
       if (sort === "latest"){
         tempProducts = products
@@ -50,10 +49,23 @@ const filterSlice = createSlice({
       state.filtredProducts = tempProducts
       
   },
+  FILTER_BY_CATEGORY: (state, action)=>{
+    const {products, category}= action.payload
+    let tempProducts = []
+    if(category === "All"){
+      tempProducts = products
+      console.log(`yooooooooooooooom ${tempProducts}`)
+    } else {
+      tempProducts = products.filter(product => product.data.category === category)
+    }
+    state.filtredProducts = tempProducts 
+
+
+  }
   }
 });
 
-export const {FILTER_BY_SEARCH,SORT_PRODUCTS } = filterSlice.actions
+export const {FILTER_BY_SEARCH,SORT_PRODUCTS, FILTER_BY_CATEGORY } = filterSlice.actions
 
 export const selectFilterProducts = (state)=> state.filter.filtredProducts
 

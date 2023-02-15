@@ -44,7 +44,6 @@ const useFetchCollection = (collectionName) => {
         getCollection()
     }, [])
 
-    console.log(data)
 
     return {data, isLoadingProduct}
 

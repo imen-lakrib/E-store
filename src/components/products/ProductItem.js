@@ -60,6 +60,9 @@ export default function ProductItem({ product, grid}) {
             <Typography variant="h6" color="text.secondary">
             {`${product.data.name}`.substring(0,40).concat("..")}
             </Typography>
+            <Typography  variant="h6" color="error">
+            {`${product.data.price}`}.00$
+            </Typography>
           </CardContent>
           <CardActions disableSpacing >
             <IconButton aria-label="add to favorites">
