@@ -75,7 +75,7 @@ const ProductFilter = ({products}) => {
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Category:</FormLabel>
       {allCategories.map((cat, index) =>{
-        return(<Button sx={{backgroundColor:cat === category ? "red": null}} key={index}
+        return(<Button color={cat === category ? "secondary": "primary"}  key={index}
         onClick={()=> filterProducts(cat)}
         >
           {cat}
@@ -90,7 +90,7 @@ const ProductFilter = ({products}) => {
 
       <Slider value={price} onChange={(e)=>setPrice(e.target.value)} min={minPrice} max={maxPrice} aria-label="Default" valueLabelDisplay="auto" />
     </Box>
-    <Button onClick={clearFilters} >Clear Filter</Button>
+    <Button color='primary' onClick={clearFilters} >Clear Filter</Button>
     </Card>
   )
 }

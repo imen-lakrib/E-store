@@ -13,7 +13,8 @@ export const appTheme = createTheme({
   components: {
     MuiButton: {
       defaultProps: {
-        disableElevation: true
+        disableElevation: true,
+        variant:"outlined"
       },
       styleOverrides: {
         root: {
@@ -152,18 +153,18 @@ export const appTheme = createTheme({
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
     background: {
-      default: '#F9FAFC',
+      default: '#F5F5F5',
       paper: '#FFFFFF'
     },
     divider: '#E6E8F0',
     primary: {
-      main: '#776d8a',
+      main: '#0071C5',
       light: '#828DF8',
       dark: '#3832A0',
       contrastText: '#FFFFFF'
     },
     secondary: {
-      main: '#10B981',
+      main: '#FFA500',
       light: '#3FC79A',
       dark: '#0B815A',
       contrastText: '#FFFFFF'
@@ -193,7 +194,7 @@ export const appTheme = createTheme({
       contrastText: '#FFFFFF'
     },
     text: {
-      primary: '#121828',
+      primary: '#444444',
       secondary: '#65748B',
       disabled: 'rgba(55, 65, 81, 0.48)'
     }

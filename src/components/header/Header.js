@@ -18,8 +18,8 @@ function Header({ local, setDirection }) {
   const logo = (
     <Link to="/">
       <MenuItem  >
-        <StoreIcon />
-        <Typography sx={{display: { xs: 'none', sm: 'flex' }}}> {t("estore")}</Typography>
+        <StoreIcon color='secondary' />
+        <Typography color='secondary' sx={{display: { xs: 'none', sm: 'flex' }}}> {t("estore")}</Typography>
        
       </MenuItem>
 
@@ -59,12 +59,12 @@ function Header({ local, setDirection }) {
 
       <Grid sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center", justifyContent: "center" }}>
 
-        <Box sx={{mx:2}}><NavLink  to="/">{t("home")}</NavLink></Box>
-        <Box sx={{mx:2}}> <NavLink to="/#products">{t("shop")}</NavLink></Box>
+        <Box  sx={{mx:2, backgroundColor:'primary.main', p:1}}><NavLink style={{color:"#444444"}} to="/">{t("home")}</NavLink></Box>
+        <Box sx={{mx:2, backgroundColor:'primary.main', p:1}}> <NavLink style={{color:"#444444"}} to="/#products">{t("shop")}</NavLink></Box>
 
-        <Box sx={{mx:2}}> <NavLink to="cart">{t("cart")}</NavLink></Box>
+        <Box sx={{mx:2, backgroundColor:'primary.main', p:1}}> <NavLink style={{color:"#444444"}} to="cart">{t("cart")}</NavLink></Box>
 
-        <Box sx={{mx:2}}> <NavLink to="/contact">{t("contact")}</NavLink></Box>
+        <Box sx={{mx:2, backgroundColor:'primary.main', p:1}}> <NavLink style={{color:"#444444"}} to="/contact">{t("contact")}</NavLink></Box>
 
        
        

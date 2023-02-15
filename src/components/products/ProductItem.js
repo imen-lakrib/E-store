@@ -57,10 +57,10 @@ export default function ProductItem({ product, grid}) {
             alt={product.data.name}
           /></Link>
           <CardContent sx={{ py: 1 }}>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="h6" >
             {`${product.data.name}`.substring(0,40).concat("..")}
             </Typography>
-            <Typography  variant="h6" color="error">
+            <Typography  variant="h6" color="secondary">
             {`${product.data.price}`}.00$
             </Typography>
           </CardContent>
@@ -73,7 +73,7 @@ export default function ProductItem({ product, grid}) {
             </IconButton>
 
             <ExpandMore
-            ><Button>Add to cart</Button>
+            ><Button color='secondary'>Add to cart</Button>
 
             </ExpandMore>
           </CardActions>
@@ -101,7 +101,7 @@ export default function ProductItem({ product, grid}) {
                   </IconButton>
 
                   <ExpandMore
-                  ><Button>Add to cart</Button>
+                  ><Button color='primary'>Add to cart</Button>
 
                   </ExpandMore>
                 </CardActions>

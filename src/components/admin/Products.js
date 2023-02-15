@@ -392,13 +392,15 @@ export default function Products() {
                 </Typography>
                 <Box>
                   <Button
-                    variant="outlined"
+                  color='primary'
+                  variant="outlined"
                     onClick={() => { getProducts() }}
                     startIcon={<RefreshIcon />}
                   > <Typography sx={{display:{xs:"none", md:"block"}}}>Actualiser</Typography>
           
                   </Button>
                   <Button
+                  color='primary'
                     variant="outlined"
                     onClick={handleClickOpenAdd}
                     startIcon={<PlusOne />}
@@ -682,8 +684,8 @@ export default function Products() {
             />
 
             <DialogActions>
-              <Button onClick={handleCloseAdd} autoFocus>Cancel</Button>
-              <Button onClick={handleSubmitAdd}>Ajouter</Button>
+              <Button color='primary' onClick={handleCloseAdd} autoFocus>Cancel</Button>
+              <Button color='primary' onClick={handleSubmitAdd}>Ajouter</Button>
             </DialogActions>
           </form>
         </DialogContent>
@@ -769,8 +771,8 @@ export default function Products() {
             />
 
             <DialogActions>
-              <Button onClick={handleCloseEdit} autoFocus>Cancel</Button>
-              <Button onClick={handleSubmitEdit}>Confirmer</Button>
+              <Button color='primary' onClick={handleCloseEdit} autoFocus>Cancel</Button>
+              <Button color='primary' onClick={handleSubmitEdit}>Confirmer</Button>
             </DialogActions>
           </form>
         </DialogContent>

@@ -90,7 +90,7 @@ const ProductDetails = () => {
 
                 <Typography gutterBottom variant='h6'>Brand: <Chip size="small" label={product?.brand} /></Typography>
                 <Typography gutterBottom variant='h6'>Category: <Chip size="small" label={product?.category} /></Typography>
-                <Typography gutterBottom variant='h4'>${product?.price}.00</Typography>
+                <Typography gutterBottom  color='secondary' variant='h4'>${product?.price}.00</Typography>
 
               </CardContent>
 
@@ -101,7 +101,7 @@ const ProductDetails = () => {
                   <IconButton><Add/></IconButton>
                 </Box>
                 <br/>
-                <Button>Add To Cart</Button>
+                <Button color='secondary'>Add To Cart</Button>
               </CardActions>
 
 

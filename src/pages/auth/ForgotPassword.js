@@ -79,7 +79,7 @@ function ForgotPassword() {
                       
                         <Box sx={{ py: 1 }}>
                             <Button
-                                color="primary"
+                                color='primary'
                                 disabled={formik.isSubmitting}
                                 fullWidth
                                 size="large"
