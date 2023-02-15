@@ -156,10 +156,13 @@ export default function ProductItem({ product, grid }) {
 
         <DialogContent sx={{ padding: "10px 20px" }}>
           <Grid Grid container spacing={2}>
-            <Grid item xs={6} >
-              <img style={{width:"300px"}} src={product.data.imgURL}/>
+            <Grid item xs={12} sm={6}  >
+              <Card sx={{width:{xs:"250px", sm:"200px", md:"300px"}}}>
+              <img style={{width:"100%"}} src={product.data.imgURL}/>
+
+              </Card>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
             <Card >
               <CardContent> <Typography component="div" variant="h4">
               {product.data.name}
