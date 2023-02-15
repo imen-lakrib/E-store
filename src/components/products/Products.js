@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useFetchCollection from '../../customHooks/useFetchCollection'
 import { selectFilterProducts } from '../../redux/slices/filterSlice'
-import { selectProducts, STORE_PRODUCTS } from '../../redux/slices/productSlice'
+import { GET_PRICE_RANGE, selectProducts, STORE_PRODUCTS } from '../../redux/slices/productSlice'
 import ProductFilter from './ProductFilter'
 import ProductsList from './ProductsList'
 
@@ -16,10 +16,12 @@ const Products = () => {
   const dispatch = useDispatch()
   const products = useSelector(selectProducts)
 
-  console.log(products)
 
   useEffect(() => { 
     dispatch(STORE_PRODUCTS({
+      products: data,
+    }));
+    dispatch(GET_PRICE_RANGE({
       products: data,
     }))
 

@@ -70,19 +70,22 @@ const filterSlice = createSlice({
       tempProducts = products.filter(product => product.data.brand === brand)
 
     }
-   
-   
-   
-   
-
-
     state.filtredProducts = tempProducts
     
 },
+FILTER_BY_PRICE:(state, action)=>{
+  const {products, price} = action.payload
+  console.log(price)
+    let tempProducts = []
+    tempProducts= products.filter(product => product.data.price <= price)
+
+  state.filtredProducts = tempProducts
+
+}
   }
 });
 
-export const {FILTER_BY_SEARCH,SORT_PRODUCTS, FILTER_BY_CATEGORY , FILTER_BY_BRAND} = filterSlice.actions
+export const {FILTER_BY_SEARCH,SORT_PRODUCTS, FILTER_BY_CATEGORY , FILTER_BY_BRAND, FILTER_BY_PRICE} = filterSlice.actions
 
 export const selectFilterProducts = (state)=> state.filter.filtredProducts
 

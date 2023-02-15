@@ -1,7 +1,8 @@
 import { Box, Button, Card, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, Slider, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { FILTER_BY_BRAND, FILTER_BY_CATEGORY } from '../../redux/slices/filterSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { FILTER_BY_BRAND, FILTER_BY_CATEGORY, FILTER_BY_PRICE } from '../../redux/slices/filterSlice';
+import { GET_PRICE_RANGE, selectMaxPrice, selectMinPrice } from '../../redux/slices/productSlice';
 
 const ProductFilter = ({products}) => {
   const [age, setAge] = React.useState('');
@@ -31,6 +32,19 @@ const ProductFilter = ({products}) => {
     dispatch(FILTER_BY_BRAND({products,brand}))
 
   },[dispatch, products, brand])
+
+  // filter by price:
+  const minPrice = useSelector(selectMinPrice)
+  const maxPrice = useSelector(selectMaxPrice)
+  const [price, setPrice]= useState(300)
+
+
+  useEffect(()=>{
+    dispatch(FILTER_BY_PRICE({products,price}))
+
+  },[dispatch, products, price])
+
+
 
 
 
@@ -67,10 +81,10 @@ const ProductFilter = ({products}) => {
     
     </FormControl>
     </Box>
-      <Box py={2} >
+      <Box p={2} >
       <FormLabel id="demo-radio-buttons-group-label">Price:</FormLabel>
 
-      <Slider defaultValue={1000} aria-label="Default" valueLabelDisplay="auto" />
+      <Slider value={price} onChange={(e)=>setPrice(e.target.value)} min={minPrice} max={maxPrice} aria-label="Default" valueLabelDisplay="auto" />
     </Box>
     <Button>Clear Filter</Button>
     </Card>
