@@ -187,6 +187,7 @@ export const appTheme = createTheme({
       dark: '#B27B16',
       contrastText: '#FFFFFF'
     },
+    
     error: {
       main: '#D14343',
       light: '#DA6868',

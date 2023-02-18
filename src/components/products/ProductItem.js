@@ -156,7 +156,7 @@ export default function ProductItem({ product, grid }) {
 
         <DialogContent sx={{ padding: "10px 20px" }}>
           <Grid Grid container spacing={2}>
-            <Grid item xs={12} sm={6}  >
+            <Grid item xs={12} sm={6} >
               <Card sx={{width:{xs:"250px", sm:"200px", md:"300px"}}}>
               <img style={{width:"100%"}} src={product.data.imgURL}/>
 
@@ -190,10 +190,6 @@ export default function ProductItem({ product, grid }) {
                 <br/>
                 <Button color='secondary'>Add To Cart</Button>
               </CardActions>
-
-
-
-
 
             </Card>
             </Grid>
