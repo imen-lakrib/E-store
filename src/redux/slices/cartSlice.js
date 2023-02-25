@@ -5,7 +5,7 @@ const initialState = {
     // we gonne save it in local storage to keep the data when we refresh the page
     cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')): [] ,
     // JSON.parce(localStorage.getItem('cartItems')) : [],
-    cartTotalCuantity: 0,
+    cartTotalQuantity: 0,
     cartTotalAmount: 0,
 
 
@@ -40,15 +40,70 @@ const cartSlice = createSlice({
       // save cart to local storage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
 
+    },
+    DECREASE_CART: (state, action)=>{
+      const productIndex = state.cartItems.findIndex((item)=> item.id === action.payload.id)
+
+      if(state.cartItems[productIndex].cartQuantity > 1){
+        state.cartItems[productIndex].cartQuantity -= 1
+      toast.info(`${action.payload.name? action.payload.name: action.payload.data.name} decreased by 1`,{
+        position: 'bottom-center'
+      })
+
+      }else if(state.cartItems[productIndex].cartQuantity === 1){
+        // in this case we delete the product from the cart
+        const newCartItem= state.cartItems.filter( item => item.id !== action.payload.id)
+        state.cartItems= newCartItem
+        toast.info(`${action.payload.name? action.payload.name: action.payload.data.name} deleted from the cart`,{
+          position: 'bottom-center'
+        })
+
+      }
+        // save cart to local storage
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
+
+
+    },
+    DELETE_FROM_CART:(state, action)=>{
+      const newCartItem= state.cartItems.filter( item => item.id !== action.payload.id)
+
+
+      state.cartItems= newCartItem
+        toast.info(`${action.payload.name? action.payload.name: action.payload.data.name} deleted from the cart`,{
+          position: 'bottom-center'
+        })
+
+
+         // save cart to local storage
+         localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
+      
+      
+
+    },
+    CLEAR_CART:(state, action)=>{
+      state.cartItems = [];
+
+      toast.info("Your cart has been cleared",{
+        position: 'bottom-center'
+      })
+
+
+       // save cart to local storage
+       localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
+
+    }, CALCULATE_SUB_TOTAL:(state, action)=>{
+      const cartItemsAmount = state.cartItems.reduce((acc, curr) => (acc + (curr.price ? curr.price * curr.cartQuantity : curr.data.price * curr.cartQuantity)), 0).toFixed(2)
+      state.cartTotalAmount= cartItemsAmount
     }
+
   }
 });
 
 // here we export the actions :
-export const {ADD_TO_CART} = cartSlice.actions
+export const {ADD_TO_CART, DECREASE_CART, DELETE_FROM_CART,CLEAR_CART,CALCULATE_SUB_TOTAL} = cartSlice.actions
 // here we export the variables (which are the states)
 export const selectCartItems = (state)=> state.cart.cartItems
-export const selectCartTotalCuantity = (state)=> state.cart.cartTotalCuantity
+export const selectCartTotalQuantity = (state)=> state.cart.cartTotalQuantity
 export const selectCartTotalAmount= (state)=> state.cart.cartTotalAmount
 
 export default cartSlice.reducer

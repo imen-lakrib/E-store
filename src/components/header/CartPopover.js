@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, MenuItem, Stack, IconButton, Popover, Badge, CardMedia, Card, CardContent, Typography, CardActions, Button } from '@mui/material';
+import { Box, Stack, IconButton, Popover, Badge, Card, Typography, Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Add, Delete, Remove } from '@mui/icons-material';
+import Fab from '@mui/material/Fab';
 
 // ----------------------------------------------------------------------
 //redux
-import { useSelector } from 'react-redux';
-import { selectCartItems, selectCartTotalAmount, selectCartTotalCuantity } from '../../redux/slices/cartSlice';
-import { Link } from 'react-router-dom';
-import { Add, Delete, Remove } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_TO_CART, DECREASE_CART, CLEAR_CART, DELETE_FROM_CART,CALCULATE_SUB_TOTAL, selectCartItems, selectCartTotalAmount } from '../../redux/slices/cartSlice';
 
 
 // ----------------------------------------------------------------------
@@ -27,11 +27,36 @@ export default function CartPopover() {
 
 
   //
+  const dispatch = useDispatch()
 
   const cartItems = useSelector(selectCartItems)
   const cartTotalAmount = useSelector(selectCartTotalAmount)
-  const cartTotalCuantity = useSelector(selectCartTotalCuantity)
+  // const cartTotalQuantity = useSelector(selectCartTotalQuantity)
   console.log(cartItems.length)
+
+  const decreaseCart = (item) => {
+    dispatch(DECREASE_CART(item))
+
+  }
+  const increaseCart = (item) => {
+    dispatch(ADD_TO_CART(item))
+
+  }
+
+  const deleteFromCart = (item) => {
+    dispatch(DELETE_FROM_CART(item))
+
+  }
+
+  const clearCart=()=>{
+    dispatch(CLEAR_CART())
+
+  }
+  // 
+  useEffect(()=>{
+    dispatch(CALCULATE_SUB_TOTAL())
+
+  },[dispatch, cartItems])
 
   return (
     <>
@@ -77,48 +102,56 @@ export default function CartPopover() {
             <div>Your cart is currently empty!
               <br />
 
-              <Link to="/#products">&larr; complete shopping ..</Link>
+              <Button onClick={() => handleClose()}>&larr; complete shopping ..
+              </Button>
             </div>
-          ) : 
-          <div>
-            {cartItems.map(item => {
-            return (
-              <Card sx={{ display: 'flex', m:"2px" }}>
-                <Box sx={{ display: 'flex', justifyContent: "space-between", alignItems: "center", p: 2 }}>
-                  <img style={{ width: '10%' }} src={item.imgURL ? item.imgURL : item.data.imgURL} />
-                  <Box>
-                    <Typography component="div" variant="h6" wrap>
-                      {`${item.name ? item.name : item.data.name}`.substring(0, 80).concat("..")}
-                    </Typography>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <IconButton ><Remove sx={{fontSize:20, border:"gray 1px solid"}} /></IconButton>
-                      <p >1</p>
-                      <IconButton><Add sx={{fontSize:20, border:"gray 1px solid"}}/></IconButton>
+          ) :
+            <div>
+              {cartItems.map(item => {
+                return (
+                  <Card sx={{ display: 'flex', m: "2px" }}>
+                    <Box sx={{ display: 'flex', justifyContent: "space-between", alignItems: "center", p: 2 }}>
+                      <img alt='name' style={{ width: '10%' }} src={item.imgURL ? item.imgURL : item.data.imgURL} />
+                      <Box>
+                        <Typography component="div" variant="h6" wrap>
+                          {`${item.name ? item.name : item.data.name}`.substring(0, 80).concat("..")}
+                        </Typography>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                          <IconButton onClick={() => decreaseCart(item)} ><Remove sx={{ fontSize: 20, border: "gray 1px solid" }} /></IconButton>
+                          <p >{item.cartQuantity}</p>
+                          <IconButton onClick={() => increaseCart(item)}><Add sx={{ fontSize: 20, border: "gray 1px solid" }} /></IconButton>
+                        </Box>
+
+                      </Box>
+
+                      <Box>
+                        <IconButton onClick={() => deleteFromCart(item)}><Delete sx={{ fontSize: 20, color: 'red' }} /></IconButton>
+
+
+                        <p>{item.price ? (item.price * item.cartQuantity).toFixed(2) : (item.data.price * item.cartQuantity).toFixed(2)}$</p>
+                      </Box>
+
+
+
+
+
                     </Box>
+                  </Card>
+                )
+              })}
+              <Box sx={{ display: 'flex', justifyContent: "space-between", alignItems: "center", p: 1 }}>
 
-                  </Box>
+                <Typography variant="h6">Total: {cartTotalAmount} $</Typography>
+                <Button>Checkout</Button>
+              </Box>
 
-                  <Box>
-                  <IconButton><Delete sx={{fontSize:20, color:'red'}}/></IconButton>
-
-                    
-                    <p>022$</p>
-                  </Box>
-
-                  
-
-
-
-                </Box>
-              </Card>
-            )
-          })}
-          <Box sx={{display: 'flex', justifyContent: "space-between", alignItems: "center",p:1}}>
-                      <Typography variant="h6">Total: 0124 $</Typography>
-                      <Button>Checkout</Button>
-                  </Box>
-          </div>
+              <Fab  variant="extended" size="small" onClick={()=> clearCart()} color="error" aria-label="add">
+                Clear Cart
+              </Fab>
+            </div>
           }
+
+
 
         </Stack>
       </Popover>

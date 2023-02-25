@@ -11,11 +11,10 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { db } from '../../firebase/config'
-import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import { Add, ArrowBack, PlusOne, Remove } from '@mui/icons-material';
+import { Add, ArrowBack, Remove } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART} from '../../redux/slices/cartSlice'
 

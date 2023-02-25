@@ -1,27 +1,16 @@
 
 import { styled } from '@mui/material/styles';
-import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { Add, PlusOne, Remove, ShowerRounded } from '@mui/icons-material';
-import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@mui/material';
+import { Add, Remove } from '@mui/icons-material';
+import { Button, Chip, Dialog, DialogContent, Grid } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -44,13 +33,7 @@ const ExpandMore = styled((props) => {
 export default function ProductItem({ product, grid }) {
 
   const dispatch= useDispatch()
-  const theme = useTheme();
-
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  
 
 
   // Quiq view:
@@ -60,11 +43,11 @@ export default function ProductItem({ product, grid }) {
     setOpenQuiqView(true);
   };
 
-  const handleSubmitQuiqView= (e) => {
+  // const handleSubmitQuiqView= (e) => {
    
-    handleCloseQuiqView()
+  //   handleCloseQuiqView()
 
-  };
+  // };
   const handleCloseQuiqView = () => {
     setOpenQuiqView(false);
   };
@@ -172,7 +155,7 @@ export default function ProductItem({ product, grid }) {
           <Grid Grid container spacing={2}>
             <Grid item xs={12} sm={6} >
               <Card sx={{width:{xs:"250px", sm:"200px", md:"300px"}}}>
-              <img style={{width:"100%"}} src={product.data.imgURL}/>
+              <img alt={product.data.name} style={{width:"100%"}} src={product.data.imgURL}/>
 
               </Card>
             </Grid>
