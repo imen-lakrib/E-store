@@ -25,6 +25,11 @@ import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid }
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_CART} from '../../redux/slices/cartSlice'
+
+
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -37,6 +42,8 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function ProductItem({ product, grid }) {
+
+  const dispatch= useDispatch()
   const theme = useTheme();
 
   const [expanded, setExpanded] = useState(false);
@@ -61,6 +68,13 @@ export default function ProductItem({ product, grid }) {
   const handleCloseQuiqView = () => {
     setOpenQuiqView(false);
   };
+
+  // add to cart : 
+  const addToCart=(product)=>{
+    console.log(product)
+    dispatch(ADD_TO_CART(product))
+
+  }
 
   
   
@@ -97,7 +111,7 @@ export default function ProductItem({ product, grid }) {
             </IconButton>
 
             <ExpandMore
-            ><Button color='secondary'>Add to cart</Button>
+            ><Button onClick={()=> addToCart(product)}  color='secondary'>Add to cart</Button>
 
             </ExpandMore>
           </CardActions>
@@ -127,7 +141,7 @@ export default function ProductItem({ product, grid }) {
                   </IconButton>
 
                   <ExpandMore
-                  ><Button color='primary'>Add to cart</Button>
+                  ><Button onClick={()=> addToCart(product)} color='primary'>Add to cart</Button>
 
                   </ExpandMore>
                 </CardActions>
@@ -188,7 +202,7 @@ export default function ProductItem({ product, grid }) {
                   <IconButton><Add/></IconButton>
                 </Box>
                 <br/>
-                <Button color='secondary'>Add To Cart</Button>
+                <Button onClick={()=> addToCart(product)}   color='secondary'>Add To Cart</Button>
               </CardActions>
 
             </Card>

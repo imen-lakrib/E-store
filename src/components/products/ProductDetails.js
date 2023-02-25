@@ -16,7 +16,13 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import { Add, ArrowBack, PlusOne, Remove } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_CART} from '../../redux/slices/cartSlice'
+
+
 const ProductDetails = () => {
+
+  const dispatch= useDispatch()
 
   // tab :
   const [value, setValue] = React.useState('1');
@@ -52,6 +58,15 @@ const ProductDetails = () => {
 
     }
   }
+
+
+  // add to cart : 
+  const addToCart=(product)=>{
+   
+    dispatch(ADD_TO_CART(product))
+
+  }
+
 
 
 
@@ -101,7 +116,7 @@ const ProductDetails = () => {
                   <IconButton><Add/></IconButton>
                 </Box>
                 <br/>
-                <Button color='secondary'>Add To Cart</Button>
+                <Button onClick={()=> addToCart(product)}  color='secondary'>Add To Cart</Button>
               </CardActions>
 
 
