@@ -14,8 +14,8 @@ import { Button, Chip, Dialog, DialogContent, Grid } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { ADD_TO_CART} from '../../redux/slices/cartSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_TO_CART, DECREASE_CART, selectCartItems } from '../../redux/slices/cartSlice'
 
 
 
@@ -32,8 +32,8 @@ const ExpandMore = styled((props) => {
 
 export default function ProductItem({ product, grid }) {
 
-  const dispatch= useDispatch()
-  
+  const dispatch = useDispatch()
+
 
 
   // Quiq view:
@@ -44,7 +44,7 @@ export default function ProductItem({ product, grid }) {
   };
 
   // const handleSubmitQuiqView= (e) => {
-   
+
   //   handleCloseQuiqView()
 
   // };
@@ -53,14 +53,31 @@ export default function ProductItem({ product, grid }) {
   };
 
   // add to cart : 
-  const addToCart=(product)=>{
+  const addToCart = (product) => {
     console.log(product)
     dispatch(ADD_TO_CART(product))
 
   }
 
-  
-  
+  // to do : need review
+
+  const cartItems = useSelector(selectCartItems)
+  // const cartTotalQuantity = useSelector(selectCartTotalQuantity)
+  const prodactCart = cartItems.find((item)=> item.id === cartItems.id )
+console.log(prodactCart)
+
+  const decreaseCart = (product) => {
+    dispatch(DECREASE_CART(product))
+
+  }
+  const increaseCart = (product) => {
+    dispatch(ADD_TO_CART(product))
+
+  }
+
+
+
+
 
 
 
@@ -89,12 +106,12 @@ export default function ProductItem({ product, grid }) {
             <IconButton aria-label="add to favorites">
               <FavoriteIcon />
             </IconButton>
-            <IconButton aria-label="share" onClick={() =>handleClickOpenQuiqView()}>
+            <IconButton aria-label="share" onClick={() => handleClickOpenQuiqView()}>
               <VisibilityIcon />
             </IconButton>
 
             <ExpandMore
-            ><Button onClick={()=> addToCart(product)}  color='secondary'>Add to cart</Button>
+            ><Button onClick={() => addToCart(product)} color='secondary'>Add to cart</Button>
 
             </ExpandMore>
           </CardActions>
@@ -118,13 +135,13 @@ export default function ProductItem({ product, grid }) {
                     <FavoriteIcon />
                   </IconButton>
                   <IconButton aria-label="share"
-                    onClick={() =>handleClickOpenQuiqView()}
+                    onClick={() => handleClickOpenQuiqView()}
                   >
                     <VisibilityIcon />
                   </IconButton>
 
                   <ExpandMore
-                  ><Button onClick={()=> addToCart(product)} color='primary'>Add to cart</Button>
+                  ><Button onClick={() => addToCart(product)} color='primary'>Add to cart</Button>
 
                   </ExpandMore>
                 </CardActions>
@@ -142,8 +159,8 @@ export default function ProductItem({ product, grid }) {
         )
       }
 
-       {/*  Quiq View model*/}
-       <Dialog
+      {/*  Quiq View model*/}
+      <Dialog
         fullWidth
         maxWidth="md"
         open={openQuiqView}
@@ -154,46 +171,46 @@ export default function ProductItem({ product, grid }) {
         <DialogContent sx={{ padding: "10px 20px" }}>
           <Grid Grid container spacing={2}>
             <Grid item xs={12} sm={6} >
-              <Card sx={{width:{xs:"250px", sm:"200px", md:"300px"}}}>
-              <img alt={product.data.name} style={{width:"100%"}} src={product.data.imgURL}/>
+              <Card sx={{ width: { xs: "250px", sm: "200px", md: "300px" } }}>
+                <img alt={product.data.name} style={{ width: "100%" }} src={product.data.imgURL} />
 
               </Card>
             </Grid>
             <Grid item xs={12} sm={6}>
-            <Card >
-              <CardContent> <Typography component="div" variant="h4">
-              {product.data.name}
-              </Typography>
-              <Typography  variant="body2">
-              {`${product.data.description}`.substring(0,200).concat("..")}
+              <Card >
+                <CardContent> <Typography component="div" variant="h4">
+                  {product.data.name}
                 </Typography>
+                  <Typography variant="body2">
+                    {`${product.data.description}`.substring(0, 200).concat("..")}
+                  </Typography>
 
-              </CardContent>
-             
-              <CardContent>
+                </CardContent>
 
-                <Typography gutterBottom variant='h6'>Brand: <Chip size="small" label={product.data.brand} /></Typography>
-                <Typography gutterBottom variant='h6'>Category: <Chip size="small" label={product.data.category} /></Typography>
-                <Typography gutterBottom  color='secondary' variant='h4'>${product.data.price}.00</Typography>
+                <CardContent>
 
-              </CardContent>
+                  <Typography gutterBottom variant='h6'>Brand: <Chip size="small" label={product.data.brand} /></Typography>
+                  <Typography gutterBottom variant='h6'>Category: <Chip size="small" label={product.data.category} /></Typography>
+                  <Typography gutterBottom color='secondary' variant='h4'>${product.data.price}.00</Typography>
 
-              <CardActions disableSpacing>
-                <Box sx={{display:"flex", alignItems:"center"}}>
-                  <IconButton ><Remove/></IconButton>
-                  <Typography variant="h6">1</Typography>
-                  <IconButton><Add/></IconButton>
-                </Box>
-                <br/>
-                <Button onClick={()=> addToCart(product)}   color='secondary'>Add To Cart</Button>
-              </CardActions>
+                </CardContent>
 
-            </Card>
+                <CardActions disableSpacing>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <IconButton onClick={() => decreaseCart(product)} ><Remove sx={{ fontSize: 20, border: "gray 1px solid" }} /></IconButton>
+                    <p >{product.cartQuantity}</p>
+                    <IconButton onClick={() => increaseCart(product)}><Add sx={{ fontSize: 20, border: "gray 1px solid" }} /></IconButton>
+                  </Box>
+                  <br />
+                  <Button onClick={() => addToCart(product)} color='secondary'>Add To Cart</Button>
+                </CardActions>
+
+              </Card>
             </Grid>
           </Grid>
-          
 
-           
+
+
         </DialogContent>
       </Dialog>
       {/*Quiq View */}
