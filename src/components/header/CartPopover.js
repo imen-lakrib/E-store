@@ -10,7 +10,8 @@ import Fab from '@mui/material/Fab';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_TO_CART, DECREASE_CART, CLEAR_CART, DELETE_FROM_CART,CALCULATE_SUB_TOTAL, selectCartItems, selectCartTotalAmount } from '../../redux/slices/cartSlice';
-
+import { selectIsLoggedIn } from '../../redux/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -58,6 +59,18 @@ export default function CartPopover() {
 
   },[dispatch, cartItems])
 
+  // check if the user is loggedin or not for the checkout opperation:
+
+  const navigate = useNavigate()
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const checkOut =()=>{
+    if(isLoggedIn){
+      navigate('/checkout')
+    }
+    else navigate('/login')
+  
+    
+  }
   return (
     <>
       <IconButton
@@ -142,7 +155,7 @@ export default function CartPopover() {
               <Box sx={{ display: 'flex', justifyContent: "space-between", alignItems: "center", p: 1 }}>
 
                 <Typography variant="h6">Total: {cartTotalAmount} $</Typography>
-                <Button>Checkout</Button>
+                <Button onClick={checkOut}>Checkout</Button>
               </Box>
 
               <Fab  variant="extended" size="small" onClick={()=> clearCart()} color="error" aria-label="add">

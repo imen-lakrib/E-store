@@ -18,6 +18,7 @@ import LocaleContext from './utils/language/LocalContext';
 import AdminOnlyRoute from './components/adminOnlyRoute/AdminOnlyRoute'
 import Admin from './pages/admin/Admin'
 import ProductDetails from './components/products/ProductDetails'
+import Checkout from './pages/checkout/Checkout'
 
 
 
@@ -46,6 +47,8 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/forgotpassword' element={<ForgotPassword />} />
+            <Route path='/checkout' element={<Checkout />} />
+            
             <Route path='/admin/*' element={<AdminOnlyRoute><Admin direction={direction} /></AdminOnlyRoute>} />
           </Routes>
           <Footer />
